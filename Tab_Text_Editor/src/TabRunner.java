@@ -1,5 +1,9 @@
 /**
- * Created by ken12_000 on 3/26/2016.
+ * Demo class to create a textEditorGUI object.
  */
 public class TabRunner {
+
+    public static void main(String[] args) {
+        new textEditorGUI();
+    }
 }

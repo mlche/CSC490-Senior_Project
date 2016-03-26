@@ -42,8 +42,5 @@ class textEditorGUI{
         frm.setVisible(true);
         
     }
-    
-    public static void main(String[] args) {
-        new textEditorGUI();
-    }
+
 }

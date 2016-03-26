@@ -1,5 +1,5 @@
 /**
- * Created by ken12_000 on 3/26/2016.
+ * Class to hold information about current tab opened in tabEditorGUI.
  */
 public class TabSheet {
 }

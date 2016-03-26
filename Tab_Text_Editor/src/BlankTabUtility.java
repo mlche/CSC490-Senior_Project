@@ -1,5 +1,5 @@
 /**
- * Created by ken12_000 on 3/26/2016.
+ * Class to handle insertion of blank tablature into the textEditorGUI.
  */
 public class BlankTabUtility {
 }

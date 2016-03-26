@@ -1,5 +1,7 @@
+import javax.swing.*;
+
 /**
- * Created by ken12_000 on 3/26/2016.
+ * JFileChooser class for file chooser window.
  */
-public class TabFileChooser {
+public class TabFileChooser extends JFileChooser{
 }

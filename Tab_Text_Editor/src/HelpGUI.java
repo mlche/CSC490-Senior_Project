@@ -1,5 +1,5 @@
 /**
- * Created by ken12_000 on 3/26/2016.
+ * The help screen GUI.
  */
 public class HelpGUI {
 }

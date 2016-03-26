@@ -1,5 +1,6 @@
 /**
- * Created by ken12_000 on 3/26/2016.
+ * Class to handle modifications to tablature.
+ * This will include length changes and tuning changes.
  */
 public class TabModifier {
 }
