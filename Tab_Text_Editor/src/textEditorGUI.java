@@ -47,6 +47,13 @@ class textEditorGUI{
         itemOpen = new JMenuItem("Open...");
         itemPrint = new JMenuItem("Print");
         itemClose = new JMenuItem("Close");
+
+        //Add action listeners to the menu items
+        ActionListener listener = new MenuItemListener();
+        itemOpen.addActionListener(listener);
+        itemPrint.addActionListener(listener);
+        itemClose.addActionListener(listener);
+        
         menu1.add(itemOpen);
         menu1.add(itemPrint);
         menu1.add(itemClose);
@@ -91,6 +98,7 @@ class textEditorGUI{
             }
             else if(item == itemClose){
                 //Close the program
+                frm.dispatchEvent(new WindowEvent(frm, WindowEvent.WINDOW_CLOSING));
             }
         }
     }
