@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -10,6 +12,9 @@ import java.awt.event.WindowEvent;
 public class InsertMenuGUI {
     //Window title
     private final String TITLE = "Insert Tab";
+
+    //Dialog
+    JDialog dialog;
 
     //JPanels
     private JPanel mainPanel;
@@ -36,9 +41,11 @@ public class InsertMenuGUI {
         //Build the panel and add it to the frame
         buildPanel();
 
-        JDialog dialog = new JDialog(new JFrame(), TITLE);
+        dialog = new JDialog(new JFrame(), TITLE);
 
         dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
+
+        dialog.setResizable(false);
 
         //Add panel to dialog
         dialog.add(mainPanel);
@@ -93,9 +100,11 @@ public class InsertMenuGUI {
         insertButton = new JButton(INSERT_BUTTON_LABEL);
         cancelButton = new JButton(CANCEL_BUTTON_LABEL);
 
+        insertButton.addActionListener(new InsertButtonListener());
+        cancelButton.addActionListener(new CancelButtonListener());
+
         buttonPanel.add(insertButton);
         buttonPanel.add(cancelButton);
-
 
         //Add components to settings panel
         settingsPanel.add(instrumentLabel);
@@ -113,5 +122,28 @@ public class InsertMenuGUI {
         mainPanel.add(settingsPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 22)));
         mainPanel.add(buttonPanel);
+    }
+
+    /**
+     * Private class for Insert button listener
+     */
+    private class InsertButtonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //Insert the tablature
+            //Close dialog
+            dialog.dispose();
+        }
+    }
+
+    /**
+     * Private class for Cancel button listener
+     */
+    private class CancelButtonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //Close the dialog screen
+            dialog.dispose();
+        }
     }
 }

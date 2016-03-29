@@ -56,6 +56,11 @@ class textEditorGUI{
         itemPrint = new JMenuItem("Print");
         itemClose = new JMenuItem("Close");
 
+        //Set menu item sizes
+        Dimension dimension = new Dimension(100, itemOpen.getPreferredSize().height);
+        itemOpen.setPreferredSize(dimension);
+
+        //Add action listeners to menu items
         itemOpen.addActionListener(itemListener);
         itemPrint.addActionListener(itemListener);
         itemClose.addActionListener(itemListener);
@@ -68,6 +73,7 @@ class textEditorGUI{
 
         //Set up submenu components for Insert menu
         itemInsertTab = new JMenuItem("Insert Tab");
+        itemInsertTab.setPreferredSize(dimension);
         itemInsertTab.addActionListener(itemListener);
         menu3.add(itemInsertTab);
 
