@@ -3,6 +3,7 @@ import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+import java.awt.*;
 import java.awt.event.*;
 
 
@@ -15,6 +16,9 @@ class textEditorGUI{
     private JMenuItem itemOpen;
     private JMenuItem itemPrint;
     private JMenuItem itemClose;
+
+    //Handle insertions of blank tabs
+    private BlankTabUtility blankTabUtility;
 
     public textEditorGUI() {
         //  set up the JFrame for the gui
@@ -53,7 +57,7 @@ class textEditorGUI{
         itemOpen.addActionListener(listener);
         itemPrint.addActionListener(listener);
         itemClose.addActionListener(listener);
-        
+
         menu1.add(itemOpen);
         menu1.add(itemPrint);
         menu1.add(itemClose);
@@ -65,14 +69,16 @@ class textEditorGUI{
         //Set up submenu components for Help Menu
 
         //  set up the gui under the menu as a text field
-        JTextArea jtext = new JTextArea();
-        jtext.setBorder(
+        JTextArea jText = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(jText);
+        jText.setBorder(
                 BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(8,8,8,8), 
                         BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
-        jtext.setLineWrap(true);
-        jtext.setWrapStyleWord(true);
-        jtext.setEditable(true);
-        frm.add(jtext);
+        jText.setLineWrap(true);
+        jText.setWrapStyleWord(true);
+        jText.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        jText.setEditable(true);
+        frm.add(scrollPane);
         
         //  make the gui visible
         frm.setJMenuBar(menubar);
