@@ -16,6 +16,7 @@ class textEditorGUI{
     private JMenuItem itemOpen;
     private JMenuItem itemPrint;
     private JMenuItem itemClose;
+    private JMenuItem itemInsertTab;
 
     //Handle insertions of blank tabs
     private BlankTabUtility blankTabUtility;
@@ -47,16 +48,17 @@ class textEditorGUI{
         menubar.add(menu3);
         menubar.add(menu4);
 
+        //ActionListener for menu items
+        ActionListener itemListener = new MenuItemListener();
+
         //  set up submenu components for File menu
         itemOpen = new JMenuItem("Open...");
         itemPrint = new JMenuItem("Print");
         itemClose = new JMenuItem("Close");
 
-        //Add action listeners to the menu items
-        ActionListener listener = new MenuItemListener();
-        itemOpen.addActionListener(listener);
-        itemPrint.addActionListener(listener);
-        itemClose.addActionListener(listener);
+        itemOpen.addActionListener(itemListener);
+        itemPrint.addActionListener(itemListener);
+        itemClose.addActionListener(itemListener);
 
         menu1.add(itemOpen);
         menu1.add(itemPrint);
@@ -65,6 +67,9 @@ class textEditorGUI{
         //Set up submenu components for Edit menu
 
         //Set up submenu components for Insert menu
+        itemInsertTab = new JMenuItem("Insert Tab");
+        itemInsertTab.addActionListener(itemListener);
+        menu3.add(itemInsertTab);
 
         //Set up submenu components for Help Menu
 
@@ -106,6 +111,10 @@ class textEditorGUI{
                 //Close the program
                 frm.dispatchEvent(new WindowEvent(frm, WindowEvent.WINDOW_CLOSING));
             }
+            else if(item == itemInsertTab){
+                //Start InsertMenuGUI
+                new InsertMenuGUI(frm);
+            }
         }
     }
 
@@ -122,7 +131,7 @@ class textEditorGUI{
             //Prompt user to save document with "Yes" "No" or "Cancel"
             int n = JOptionPane.showConfirmDialog(frame,
                     "Would you like to save before exiting?",
-                    "Exiting Text Editor",
+                    "Exiting...",
                     JOptionPane.YES_NO_CANCEL_OPTION);
 
             //Get user's answer from prompt
