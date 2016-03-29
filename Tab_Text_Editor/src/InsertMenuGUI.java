@@ -34,6 +34,9 @@ public class InsertMenuGUI {
     JButton insertButton;
     JButton cancelButton;
 
+    //Blank tab utility
+    BlankTabUtility blankTabUtility;
+
     /**
      * Constructor
      */
@@ -104,6 +107,7 @@ public class InsertMenuGUI {
         cancelButton.addActionListener(new CancelButtonListener());
 
         buttonPanel.add(insertButton);
+        buttonPanel.add(Box.createHorizontalStrut(20));
         buttonPanel.add(cancelButton);
 
         //Add components to settings panel

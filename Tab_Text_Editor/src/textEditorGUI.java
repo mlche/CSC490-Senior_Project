@@ -18,9 +18,6 @@ class textEditorGUI{
     private JMenuItem itemClose;
     private JMenuItem itemInsertTab;
 
-    //Handle insertions of blank tabs
-    private BlankTabUtility blankTabUtility;
-
     public textEditorGUI() {
         //  set up the JFrame for the gui
         frm = new JFrame();
