@@ -18,6 +18,9 @@ class textEditorGUI{
     private JMenuItem itemClose;
     private JMenuItem itemInsertTab;
 
+    //Text area
+    private JTextArea jText;
+
     public textEditorGUI() {
         //  set up the JFrame for the gui
         frm = new JFrame();
@@ -28,7 +31,7 @@ class textEditorGUI{
         //Add the close listener to the frame that will listen for window closing
         frm.addWindowListener(new CloseListener());
 
-        frm.setSize(700,760);
+        frm.setSize(900,760);
         frm.setTitle("Tablature Text Editor");
         frm.setLocationRelativeTo(null);  //Centers the frame on the screen
         
@@ -77,7 +80,7 @@ class textEditorGUI{
         //Set up submenu components for Help Menu
 
         //  set up the gui under the menu as a text field
-        JTextArea jText = new JTextArea();
+        jText = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(jText);
         jText.setBorder(
                 BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(8,8,8,8), 
@@ -116,7 +119,7 @@ class textEditorGUI{
             }
             else if(item == itemInsertTab){
                 //Start InsertMenuGUI
-                new InsertMenuGUI(frm);
+                new InsertMenuGUI(frm, jText);
             }
         }
     }

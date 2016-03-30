@@ -34,13 +34,23 @@ public class InsertMenuGUI {
     JButton insertButton;
     JButton cancelButton;
 
-    //Blank tab utility
-    BlankTabUtility blankTabUtility;
+    //Text area
+    JTextArea textArea;
+
+    //Combo boxes
+    JComboBox instrumentComboBox;
+    JComboBox tuningComboBox;
+
+    //Spinner for number of sections
+    JSpinner sectionsSpinner;
+    SpinnerNumberModel model;
 
     /**
      * Constructor
      */
-    public InsertMenuGUI(JFrame frame){
+    public InsertMenuGUI(JFrame frame, JTextArea text){
+        textArea = text;
+
         //Build the panel and add it to the frame
         buildPanel();
 
@@ -84,15 +94,15 @@ public class InsertMenuGUI {
         tuningStrings = new String[]{"E-Standard", "E-Flat", "Drop-D"};
 
         //Create combo-boxes
-        JComboBox instrumentComboBox = new JComboBox(instrumentStrings);
-        JComboBox tuningComboBox = new JComboBox(tuningStrings);
+        instrumentComboBox = new JComboBox(instrumentStrings);
+        tuningComboBox = new JComboBox(tuningStrings);
 
         instrumentComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         tuningComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         //Create spinner for selecting the number of tab sections
-        SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 20, 1);
-        JSpinner sectionsSpinner = new JSpinner(model);
+        model = new SpinnerNumberModel(1, 1, 20, 1);
+        sectionsSpinner = new JSpinner(model);
         sectionsSpinner.setEditor(new JSpinner.DefaultEditor(sectionsSpinner));
 
         sectionsSpinner.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -135,6 +145,31 @@ public class InsertMenuGUI {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Insert the tablature
+            BlankTabUtility tabUtility = new BlankTabUtility(textArea);
+
+            //Get tuning from the menu
+            String tuning;
+            if(tuningComboBox.getSelectedIndex() == 0){
+                tuning = "e_standard";
+            }else if(tuningComboBox.getSelectedIndex() == 1){
+                tuning = "e_flat";
+            }else{
+                tuning = "drop_d";
+            }
+
+            //Get strings
+            int numStrings;
+            if(instrumentComboBox.getSelectedIndex() == 0){
+                numStrings = 4;
+            }else{
+                numStrings = 6;
+            }
+
+            //Get number of tab sections
+            int numSections = model.getNumber().intValue();
+
+            tabUtility.insertTab(tuning, numStrings, numSections);
+
             //Close dialog
             dialog.dispose();
         }
