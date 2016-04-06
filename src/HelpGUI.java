@@ -1,6 +1,17 @@
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * The help screen GUI.
@@ -15,6 +26,13 @@ public class HelpGUI {
 
     //JPanels
     private JPanel mainPanel;
+
+    //Text pane to display help information
+    private JTextPane textPane;
+    StyledDocument doc;
+
+    //Strings for files
+    private final String TAB_SYMBOLS = "tab symbols";
 
     /**
      * Constructor.
@@ -52,7 +70,11 @@ public class HelpGUI {
         menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
         menuBar.add(createMenu("Reading Tabs"));
         menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
-        menuBar.add(createMenu("Tab Symbols"));
+
+        JMenu tabMenu = createMenu("Tab Symbols");
+        tabMenu.addMenuListener(new TabSymbolMenuListener());
+        menuBar.add(tabMenu);
+
         menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
         menuBar.add(createMenu("Tunings"));
         menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
@@ -77,11 +99,74 @@ public class HelpGUI {
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
 
-        JTextPane textPane = new JTextPane();
+        textPane = new JTextPane();
         textPane.setPreferredSize(new Dimension(800, 500));
-        StyledDocument doc = textPane.getStyledDocument();
+        doc = textPane.getStyledDocument();
         textPane.setEditable(false);
 
         mainPanel.add(textPane);
+    }
+
+    /**
+     * Retrieve and display tab symbols in the text pane.
+     */
+    private void displayTabSymbols(){
+        //Get tab symbol text
+        Path path = getFilePath(TAB_SYMBOLS);
+
+        //Array to hold text
+        String[] textArray = new String[1];
+
+        Charset charset = Charset.forName("US-ASCII");
+        try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
+            String line = "";
+            int i = 0;
+            while ((line = reader.readLine()) != null){
+                textArray[0] += line + "\n";
+                i++;
+            }
+
+            doc.insertString(doc.getLength(), textArray[0], null);
+
+        } catch (IOException x) {
+            System.err.format("IOException: %s%n", x);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Get the file path
+     */
+    private Path getFilePath(String type){
+        Path pth;
+        //Get tab symbols file path
+        if(type.equals(TAB_SYMBOLS)){
+            pth = Paths.get("src", "resources", "help_text", "tab_symbols.txt");
+        }else{
+            pth = null;
+        }
+
+        return pth;
+    }
+
+    /**
+     * Listener classes for menu options.
+     */
+    private class TabSymbolMenuListener implements MenuListener {
+        @Override
+        public void menuSelected(MenuEvent e) {
+            displayTabSymbols();
+        }
+
+        @Override
+        public void menuDeselected(MenuEvent e) {
+
+        }
+
+        @Override
+        public void menuCanceled(MenuEvent e) {
+
+        }
     }
 }
