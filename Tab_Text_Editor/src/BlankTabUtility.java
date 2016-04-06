@@ -16,6 +16,9 @@ public class BlankTabUtility {
 
     //Tab file to insert
     private Path tabPath;
+    
+    //String array for each line to be printed
+    private String[] instrStrings;
 
     /**
      * Constructor.
@@ -30,12 +33,24 @@ public class BlankTabUtility {
     public void insertTab(String tng, int strings, int sections){
         //Get the tab file for associated specifications
         tabPath = getTabPath(tng, strings);
+        
+        instrStrings = new String[strings];
 
         Charset charset = Charset.forName("US-ASCII");
         try (BufferedReader reader = Files.newBufferedReader(tabPath, charset)) {
             String line = null;
-            while ((line = reader.readLine()) != null) {
-                textArea.append(line + "\n");
+            int i = 0;
+            while ((line = reader.readLine()) != null){
+                instrStrings[i] = line;
+                i++;
+            }
+            for(i = 0; i < sections; i++){
+                int s = 0;
+                while (s<instrStrings.length) {
+                    textArea.append(instrStrings[s] + "\n");
+                    s++;
+                }
+                textArea.append("\n");
             }
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
@@ -51,9 +66,10 @@ public class BlankTabUtility {
 
         String pathStr = tuning + "_" + numStrings + ".txt";
 
-        path = Paths.get("Tab_Text_Editor", "src", "resources", "blank_tabs", pathStr);
-
+        path = Paths.get("src", "resources", "blank_tabs", pathStr);
+                
         return path;
+        
     }
 
 }
