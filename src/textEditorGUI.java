@@ -17,6 +17,8 @@ class textEditorGUI{
     private JMenuItem itemPrint;
     private JMenuItem itemClose;
     private JMenuItem itemInsertTab;
+    private JMenuItem itemHelp;
+    private JMenuItem itemAbout;
 
     //Text area
     private JTextArea jText;
@@ -84,6 +86,13 @@ class textEditorGUI{
         menu3.add(itemInsertTab);
 
         //Set up submenu components for Help Menu
+        itemHelp = new JMenuItem("Help");
+        itemAbout = new JMenuItem("About");
+        itemHelp.setPreferredSize(dimension);
+        itemHelp.addActionListener(itemListener);
+        itemAbout.addActionListener(itemListener);
+        menu4.add(itemHelp);
+        menu4.add(itemAbout);
 
         //  set up the gui under the menu as a text field
         jText = new JTextArea();
@@ -126,6 +135,11 @@ class textEditorGUI{
             else if(item == itemInsertTab){
                 //Start InsertMenuGUI
                 new InsertMenuGUI(frm, jText);
+            }else if(item == itemHelp){
+                //Create and display help option GUI
+                new HelpGUI();
+            }else if(item == itemAbout){
+                //Create about project GUI
             }
         }
     }
