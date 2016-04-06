@@ -61,7 +61,13 @@ class textEditorGUI{
         itemOpen.setPreferredSize(dimension);
 
         //Add action listeners to menu items
-        itemOpen.addActionListener(itemListener);
+        itemOpen.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TabFileChooser tfc = new TabFileChooser();
+            }
+            
+        });
         itemPrint.addActionListener(itemListener);
         itemClose.addActionListener(itemListener);
 
