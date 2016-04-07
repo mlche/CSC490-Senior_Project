@@ -24,8 +24,15 @@ class textEditorGUI{
     private JTextArea jText;
 
     public textEditorGUI() {
+        //Create menu bar for the JFrame
+        JMenuBar menuBar = createMenuBar();
+
+        //Create the editable text frame (JScrollPane)
+        JScrollPane scrollPane = createTextArea();
+
         //  set up the JFrame for the gui
         frm = new JFrame();
+        frm.setTitle("Tablature Text Editor");
 
         //Do nothing on close so that windows event can give a warning/save document before closing
         frm.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -33,10 +40,19 @@ class textEditorGUI{
         //Add the close listener to the frame that will listen for window closing
         frm.addWindowListener(new CloseListener());
 
-        frm.setSize(900,760);
-        frm.setTitle("Tablature Text Editor");
-        frm.setLocationRelativeTo(null);  //Centers the frame on the screen
+        //Add components to the frame
+        frm.add(scrollPane);
+        frm.setJMenuBar(menuBar);
         
+        //  make the gui visible and full screen
+        frm.setExtendedState(Frame.MAXIMIZED_BOTH);
+        frm.setVisible(true);
+    }
+
+    /**
+     * Create the menu bar.
+     */
+    private JMenuBar createMenuBar(){
         //  set up a menu bar components for user to access
         //  different functionalities
         JMenuBar menubar = new JMenuBar();
@@ -68,7 +84,7 @@ class textEditorGUI{
             public void actionPerformed(ActionEvent e) {
                 TabFileChooser tfc = new TabFileChooser();
             }
-            
+
         });
         itemPrint.addActionListener(itemListener);
         itemClose.addActionListener(itemListener);
@@ -94,22 +110,25 @@ class textEditorGUI{
         menu4.add(itemHelp);
         menu4.add(itemAbout);
 
+        return menubar;
+    }
+
+    /**
+     * Create the editable text frame to go in the JFrame
+     */
+    private JScrollPane createTextArea(){
         //  set up the gui under the menu as a text field
         jText = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(jText);
         jText.setBorder(
-                BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(8,8,8,8), 
+                BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(8,8,8,8),
                         BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
         jText.setLineWrap(true);
         jText.setWrapStyleWord(true);
         jText.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         jText.setEditable(true);
-        frm.add(scrollPane);
-        
-        //  make the gui visible
-        frm.setJMenuBar(menubar);
-        frm.setVisible(true);
-        
+
+        return scrollPane;
     }
 
     /**
