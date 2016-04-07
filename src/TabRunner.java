@@ -4,7 +4,7 @@
 public class TabRunner {
 
     public static void main(String[] args) {
-       // new UnlimitedWidthGUI();
+        //new UnlimitedWidthGUI();
         new textEditorGUI();
     }
 }
