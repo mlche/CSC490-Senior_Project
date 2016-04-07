@@ -1,4 +1,5 @@
 
+import javafx.geometry.Bounds;
 import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
@@ -40,12 +41,10 @@ class textEditorGUI{
         frm.addWindowListener(new CloseListener());
 
         //Add components to the frame
-        //frm.add(scrollPane);
         frm.setJMenuBar(menuBar);
 
         //Add the panel to the frame
         Container contentPane = frm.getContentPane();
-        //contentPane.add(pane);
         contentPane.setLayout(new FlowLayout());
         contentPane.add(scrollPane);
         
@@ -126,14 +125,15 @@ class textEditorGUI{
         //  set up the gui under the menu as a text field
         jText = new JTextArea();
 
-        JScrollPane scrollPane = new JScrollPane(jText);
-
         jText.setLineWrap(true);
         jText.setWrapStyleWord(true);
         jText.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         jText.setEditable(true);
+        jText.setMargin(new Insets(60, 60, 60, 60));
 
-        scrollPane.setPreferredSize(new Dimension(900, 800));
+        JScrollPane scrollPane = new JScrollPane(jText);
+
+        scrollPane.setPreferredSize(new Dimension(900, 1000));
 
         return scrollPane;
     }
