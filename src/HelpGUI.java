@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static java.awt.Font.DIALOG;
+
 /**
  * The help screen GUI.
  */
@@ -33,6 +35,15 @@ public class HelpGUI {
 
     //Strings for files
     private final String TAB_SYMBOLS = "tab symbols";
+
+    //Menu buttons
+    JButton howToButton;
+    JButton tabSymbolsButton;
+    JButton tuningsButton;
+
+    //Menu button fonts
+    private final Font PRESSED_FONT = new Font(Font.DIALOG,Font.BOLD, 16);
+    private final Font UNPRESSED_FONT = new Font(Font.DIALOG, Font.PLAIN, 16);
 
     /**
      * Constructor.
@@ -67,29 +78,48 @@ public class HelpGUI {
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setLayout(new BoxLayout(menuBar, BoxLayout.PAGE_AXIS));
+
+        //Create the menu buttons
+        howToButton = createMenuButton("How to Read Tabs");
+        tabSymbolsButton = createMenuButton("Tab Symbols");
+        tuningsButton = createMenuButton("Guitar Tunings");
+
+        //Add the appropriate action listener to each button
+        howToButton.addActionListener(new HowToButtonListener());
+        tabSymbolsButton.addActionListener(new TabSymbolButtonListener());
+        tuningsButton.addActionListener(new TuningsButtonListener());
+
+        //Add the menu buttons to the menu with spacing in between
         menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
-        menuBar.add(createMenu("Reading Tabs"));
+        menuBar.add(howToButton);
+        menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
+        menuBar.add(tabSymbolsButton);
+        menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
+        menuBar.add(tuningsButton);
         menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
 
-        JMenu tabMenu = createMenu("Tab Symbols");
-        tabMenu.addMenuListener(new TabSymbolMenuListener());
-        menuBar.add(tabMenu);
-
-        menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
-        menuBar.add(createMenu("Tunings"));
-        menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
-
-        menuBar.setBorder(BorderFactory.createMatteBorder(0,0,0,1, Color.BLACK));
+        //Set a border on the menu
+        menuBar.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
         return menuBar;
     }
 
-    // used by createMenuBar
-    public JMenu createMenu(String title) {
-        JMenu m = new JMenu(title);
-        m.setLayout(new FlowLayout());
+    /**
+     * Creates a menu button.
+     * The button will be displayed as just text.
+     */
+    public JButton createMenuButton(String label) {
+        JButton button = new JButton(label);
 
-        return m;
+        button.setOpaque(false);
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setFont(UNPRESSED_FONT);
+
+        Dimension dim = new Dimension(button.getPreferredSize().width + 15, button.getPreferredSize().height);
+        button.setPreferredSize(dim);
+
+        return button;
     }
 
     /**
@@ -116,6 +146,7 @@ public class HelpGUI {
 
         //Array to hold text
         String[] textArray = new String[1];
+        textArray[0] = "";
 
         Charset charset = Charset.forName("US-ASCII");
         try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
@@ -150,23 +181,56 @@ public class HelpGUI {
         return pth;
     }
 
+
     /**
-     * Listener classes for menu options.
+     * Listener class for tab symbol button click
      */
-    private class TabSymbolMenuListener implements MenuListener {
+    private class HowToButtonListener implements ActionListener{
         @Override
-        public void menuSelected(MenuEvent e) {
-            displayTabSymbols();
-        }
+        public void actionPerformed(ActionEvent e) {
+            //Make how to button bold and others plain
+            howToButton.setFont(PRESSED_FONT);
+            tabSymbolsButton.setFont(UNPRESSED_FONT);
+            tuningsButton.setFont(UNPRESSED_FONT);
 
-        @Override
-        public void menuDeselected(MenuEvent e) {
-
-        }
-
-        @Override
-        public void menuCanceled(MenuEvent e) {
-
+            //Empty text pane
+            textPane.setText("");
         }
     }
+
+    /**
+     * Listener class for tab symbol button click
+     */
+    private class TabSymbolButtonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //Make tab symbols button bold and others plain
+            tabSymbolsButton.setFont(PRESSED_FONT);
+            howToButton.setFont(UNPRESSED_FONT);
+            tuningsButton.setFont(UNPRESSED_FONT);
+
+            //Empty text pane
+            textPane.setText("");
+
+            //Show tab symbol chart
+            displayTabSymbols();
+        }
+    }
+
+    /**
+     * Listener class for tab symbol button click
+     */
+    private class TuningsButtonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //Make tunings button bold and others plain
+            tuningsButton.setFont(PRESSED_FONT);
+            tabSymbolsButton.setFont(UNPRESSED_FONT);
+            howToButton.setFont(UNPRESSED_FONT);
+
+            //Empty text pane
+            textPane.setText("");
+        }
+    }
+
 }

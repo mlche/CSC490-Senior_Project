@@ -1,3 +1,5 @@
+Tablature Symbols (commonly-used)
+
 / = slide up
 \ = slide down
 h = hammer-on
