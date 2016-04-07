@@ -20,8 +20,7 @@ class textEditorGUI{
     private JMenuItem itemHelp;
     private JMenuItem itemAbout;
 
-    //Text area
-    private JTextArea jText;
+    JTextArea jText;
 
     public textEditorGUI() {
         //Create menu bar for the JFrame
@@ -41,10 +40,17 @@ class textEditorGUI{
         frm.addWindowListener(new CloseListener());
 
         //Add components to the frame
-        frm.add(scrollPane);
+        //frm.add(scrollPane);
         frm.setJMenuBar(menuBar);
+
+        //Add the panel to the frame
+        Container contentPane = frm.getContentPane();
+        //contentPane.add(pane);
+        contentPane.setLayout(new FlowLayout());
+        contentPane.add(scrollPane);
         
         //  make the gui visible and full screen
+        frm.pack();
         frm.setExtendedState(Frame.MAXIMIZED_BOTH);
         frm.setVisible(true);
     }
@@ -119,14 +125,15 @@ class textEditorGUI{
     private JScrollPane createTextArea(){
         //  set up the gui under the menu as a text field
         jText = new JTextArea();
+
         JScrollPane scrollPane = new JScrollPane(jText);
-        jText.setBorder(
-                BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(8,8,8,8),
-                        BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
+
         jText.setLineWrap(true);
         jText.setWrapStyleWord(true);
         jText.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         jText.setEditable(true);
+
+        scrollPane.setPreferredSize(new Dimension(900, 800));
 
         return scrollPane;
     }
