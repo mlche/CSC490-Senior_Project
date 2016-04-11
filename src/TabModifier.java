@@ -13,7 +13,7 @@ public class TabModifier {
     public String modifyTab(String tun1, String tun2){
         String newTab = "";
 
-        
+
 
         return newTab;
     }

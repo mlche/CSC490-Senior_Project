@@ -84,6 +84,10 @@ public class HelpGUI {
         tabSymbolsButton = createMenuButton("Tab Symbols");
         tuningsButton = createMenuButton("Guitar Tunings");
 
+        howToButton.setFocusPainted(false);
+        tabSymbolsButton.setFocusPainted(false);
+        tuningsButton.setFocusPainted(false);
+
         //Add the appropriate action listener to each button
         howToButton.addActionListener(new HowToButtonListener());
         tabSymbolsButton.addActionListener(new TabSymbolButtonListener());
