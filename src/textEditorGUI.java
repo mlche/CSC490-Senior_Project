@@ -9,7 +9,7 @@ class textEditorGUI{
     JFrame frm;
 
     //Menu items
-    private JMenuItem itemOpen;
+    private JMenuItem itemOpen,itemSave;
     private JMenuItem itemPrint;
     private JMenuItem itemClose;
     private JMenuItem itemInsertTab;
@@ -87,6 +87,7 @@ class textEditorGUI{
 
         //  set up submenu components for File menu
         itemOpen = new JMenuItem("Open...");
+        itemSave = new JMenuItem("Save");
         itemPrint = new JMenuItem("Print");
         itemClose = new JMenuItem("Close");
 
@@ -106,6 +107,7 @@ class textEditorGUI{
         itemClose.addActionListener(itemListener);
 
         menu1.add(itemOpen);
+        menu1.add(itemSave);
         menu1.add(itemPrint);
         menu1.add(itemClose);
 
