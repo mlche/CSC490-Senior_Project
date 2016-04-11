@@ -23,5 +23,7 @@ public class TabSheetUnlimited extends TabSheet{
         jText.setEditable(true);
         jText.setCaret(new TabCaret());
 
+        super.textArea = jText;
+
     }
 }

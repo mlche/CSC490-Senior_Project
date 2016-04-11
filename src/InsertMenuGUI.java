@@ -33,7 +33,7 @@ public class InsertMenuGUI {
     JButton cancelButton;
 
     //Text area
-    JTextArea textArea;
+    TabSheet textArea;
 
     //Combo boxes
     JComboBox instrumentComboBox;
@@ -46,7 +46,7 @@ public class InsertMenuGUI {
     /**
      * Constructor
      */
-    public InsertMenuGUI(JFrame frame, JTextArea text){
+    public InsertMenuGUI(JFrame frame, TabSheet text){
         textArea = text;
 
         //Build the panel and add it to the frame

@@ -17,8 +17,6 @@ class textEditorGUI{
     private JMenuItem itemAbout;
     private JMenuItem itemModify;
 
-    JTextArea jText;
-
     private TabSheetUnlimited tabSheetUnlimted;
     private TabSheetLimited tabSheetLimited;
     private TabSheet tabSheet;
@@ -157,11 +155,11 @@ class textEditorGUI{
             }
             else if(item == itemModify){
                 //Start modify menu GUI
-                new TabModifierGUI(frm, jText);
+                new TabModifierGUI(frm, tabSheet);
             }
             else if(item == itemInsertTab){
                 //Start InsertMenuGUI
-                new InsertMenuGUI(frm, jText);
+                new InsertMenuGUI(frm, tabSheet);
             }else if(item == itemHelp){
                 //Create and display help option GUI
                 new HelpGUI();

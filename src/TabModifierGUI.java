@@ -18,7 +18,7 @@ public class TabModifierGUI {
     private JPanel mainPanel;
 
     //Text area
-    private JTextArea textArea;
+    private TabSheet textArea;
 
     //Combo Boxes
     private JComboBox currentTuningBox;
@@ -28,7 +28,7 @@ public class TabModifierGUI {
     private final String CURRENT_TUNING = "Current Tuning:";
     private final String NEW_TUNING = "New Tuning:";
 
-    public TabModifierGUI(JFrame frame, JTextArea text){
+    public TabModifierGUI(JFrame frame, TabSheet text){
         //Get text area
         textArea = text;
 

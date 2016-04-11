@@ -21,6 +21,8 @@ public class TabSheetLimited extends TabSheet{
         jText.setMargin(new Insets(60, 60, 60, 60));
         jText.setCaret(new TabCaret());
 
+        super.textArea = jText;
+
         setPreferredSize(new Dimension(900, 1000));
     }
 }

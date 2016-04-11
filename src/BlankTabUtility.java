@@ -12,7 +12,7 @@ import java.nio.file.Paths;
  */
 public class BlankTabUtility {
     //Text area to write blank tab to
-    private JTextArea textArea;
+    private TabSheet textArea;
 
     //Tab file to insert
     private Path tabPath;
@@ -23,7 +23,7 @@ public class BlankTabUtility {
     /**
      * Constructor.
      */
-    public BlankTabUtility(JTextArea area){
+    public BlankTabUtility(TabSheet area){
         textArea = area;
     }
 
