@@ -113,13 +113,13 @@ class textEditorGUI{
 
         //Set up submenu components for Edit menu
         itemModify = new JMenuItem("Modify Tuning");
-        itemModify.setPreferredSize(dimension);
+        //itemModify.setPreferredSize(dimension);
         itemModify.addActionListener(itemListener);
         menu2.add(itemModify);
 
         //Set up submenu components for Insert menu
         itemInsertTab = new JMenuItem("Insert Tab");
-        itemInsertTab.setPreferredSize(dimension);
+        //itemInsertTab.setPreferredSize(dimension);
         itemInsertTab.addActionListener(itemListener);
         menu3.add(itemInsertTab);
 

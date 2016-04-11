@@ -9,8 +9,8 @@ public class TabRunner {
         final String LIMITED = "limited";
 
         //Choost a type from above to pass to GUI
-        //new textEditorGUI(UNLIMITED);
+        new textEditorGUI(UNLIMITED);
 
-        new textEditorGUI(LIMITED);
+        //new textEditorGUI(LIMITED);
     }
 }
