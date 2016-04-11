@@ -21,11 +21,15 @@ class textEditorGUI{
     private TabSheetLimited tabSheetLimited;
     private TabSheet tabSheet;
 
+    private TabFileChooser tfc;
+
     //Type of tab sheet to open up
     private final String UNLIMITED = "unlimited";
     private final String LIMITED = "limited";
 
     public textEditorGUI(String type) {
+        tfc = new TabFileChooser();
+
         //Create menu bar for the JFrame
         JMenuBar menuBar = createMenuBar();
 
@@ -94,13 +98,8 @@ class textEditorGUI{
         itemOpen.setPreferredSize(dimension);
 
         //Add action listeners to menu items
-        itemOpen.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TabFileChooser tfc = new TabFileChooser();
-            }
-
-        });
+        itemOpen.addActionListener(itemListener);
+        itemSave.addActionListener(itemListener);
         itemPrint.addActionListener(itemListener);
         itemClose.addActionListener(itemListener);
 
@@ -145,6 +144,11 @@ class textEditorGUI{
             //Determine the menu item selected
             if(item == itemOpen){
                 //Open JFileChooser
+                String content = tfc.openFile();
+                tabSheet.setText(content);
+            }
+            else if(item == itemSave){
+                //  Save file
             }
             else if(item == itemPrint){
                 //Do print operation

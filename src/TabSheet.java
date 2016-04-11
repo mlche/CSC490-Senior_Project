@@ -9,4 +9,8 @@ public class TabSheet extends JScrollPane{
     public void append(String str){
         textArea.append(str);
     }
+
+    public void setText(String s){
+        textArea.setText(s);
+    }
 }
