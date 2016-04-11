@@ -163,6 +163,10 @@ class textEditorGUI{
                 //Close the program
                 frm.dispatchEvent(new WindowEvent(frm, WindowEvent.WINDOW_CLOSING));
             }
+            else if(item == itemModify){
+                //Start modify menu GUI
+                new TabModifierGUI(frm, jText);
+            }
             else if(item == itemInsertTab){
                 //Start InsertMenuGUI
                 new InsertMenuGUI(frm, jText);
