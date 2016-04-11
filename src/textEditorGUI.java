@@ -24,12 +24,17 @@ class textEditorGUI{
 
     JTextArea jText;
 
-    public textEditorGUI() {
+    private TabSheetUnlimited tabSheetUnlimted;
+    private TabSheetLimited tabSheetLimited;
+    private TabSheet tabSheet;
+
+    //Type of tab sheet to open up
+    private final String UNLIMITED = "unlimited";
+    private final String LIMITED = "limited";
+
+    public textEditorGUI(String type) {
         //Create menu bar for the JFrame
         JMenuBar menuBar = createMenuBar();
-
-        //Create the editable text frame (JScrollPane)
-        JScrollPane scrollPane = createTextArea();
 
         //  set up the JFrame for the gui
         frm = new JFrame();
@@ -44,11 +49,21 @@ class textEditorGUI{
         //Add components to the frame
         frm.setJMenuBar(menuBar);
 
-        //Add the panel to the frame
-        Container contentPane = frm.getContentPane();
-        contentPane.setLayout(new FlowLayout());
-        contentPane.add(scrollPane);
-        
+        //Create and add a limited width tab sheet
+        if(type.equals(LIMITED)){
+            tabSheet = new TabSheetLimited();
+
+            //Add the panel to the frame
+            Container contentPane = frm.getContentPane();
+            contentPane.setLayout(new FlowLayout());
+            contentPane.add(tabSheet);
+        }
+        else{  //Create and add an unlimited width tab sheet
+            // Get tab sheet
+            tabSheet = new TabSheetUnlimited();
+            frm.add(tabSheet);
+        }
+
         //  make the gui visible and full screen
         frm.pack();
         frm.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -121,26 +136,6 @@ class textEditorGUI{
         menu4.add(itemAbout);
 
         return menubar;
-    }
-
-    /**
-     * Create the editable text frame to go in the JFrame
-     */
-    private JScrollPane createTextArea(){
-        //  set up the gui under the menu as a text field
-        jText = new JTextArea();
-
-        jText.setLineWrap(true);
-        jText.setWrapStyleWord(true);
-        jText.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-        jText.setEditable(true);
-        jText.setMargin(new Insets(60, 60, 60, 60));
-
-        JScrollPane scrollPane = new JScrollPane(jText);
-
-        scrollPane.setPreferredSize(new Dimension(900, 1000));
-
-        return scrollPane;
     }
 
     /**

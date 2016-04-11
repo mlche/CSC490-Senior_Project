@@ -1,5 +1,8 @@
+import javax.swing.*;
+
 /**
- * Class to hold information about current tab opened in tabEditorGUI.
+ * Created by ken12_000 on 4/11/2016.
  */
-public class TabSheet {
+public class TabSheet extends JScrollPane{
+
 }
