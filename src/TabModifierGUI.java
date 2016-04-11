@@ -113,6 +113,8 @@ public class TabModifierGUI {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Modify Tablature
+            TabModifier tabModifier = new TabModifier();
+
 
             //Close dialog
             dialog.dispose();
