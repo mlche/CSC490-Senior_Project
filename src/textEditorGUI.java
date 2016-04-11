@@ -20,6 +20,7 @@ class textEditorGUI{
     private JMenuItem itemInsertTab;
     private JMenuItem itemHelp;
     private JMenuItem itemAbout;
+    private JMenuItem itemModify;
 
     JTextArea jText;
 
@@ -99,6 +100,10 @@ class textEditorGUI{
         menu1.add(itemClose);
 
         //Set up submenu components for Edit menu
+        itemModify = new JMenuItem("Modify Tuning");
+        itemModify.setPreferredSize(dimension);
+        itemModify.addActionListener(itemListener);
+        menu2.add(itemModify);
 
         //Set up submenu components for Insert menu
         itemInsertTab = new JMenuItem("Insert Tab");
