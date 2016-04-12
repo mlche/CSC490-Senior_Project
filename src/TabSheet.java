@@ -62,6 +62,9 @@ public class TabSheet extends JScrollPane {
                 if(e.getKeyCode() == KeyEvent.VK_INSERT){
                     toggleOverwriteMode();
                 }
+                else if(e.getKeyCode() == KeyEvent.VK_MINUS){
+                    textArea.insert("-----", textArea.getCaretPosition());
+                }
             }
         });
     }
