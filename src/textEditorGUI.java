@@ -28,7 +28,6 @@ class textEditorGUI{
     private final String LIMITED = "limited";
 
     public textEditorGUI(String type) {
-        tfc = new TabFileChooser();
 
         //Create menu bar for the JFrame
         JMenuBar menuBar = createMenuBar();
@@ -60,6 +59,8 @@ class textEditorGUI{
             tabSheet = new TabSheetUnlimited();
             frm.add(tabSheet);
         }
+
+        tfc = new TabFileChooser(tabSheet);
 
         //  make the gui visible and full screen
         frm.pack();
@@ -144,11 +145,11 @@ class textEditorGUI{
             //Determine the menu item selected
             if(item == itemOpen){
                 //Open JFileChooser
-                String content = tfc.openFile();
-                tabSheet.setText(content);
+                tfc.openFile();
             }
             else if(item == itemSave){
                 //  Save file
+                tfc.saveFile(tabSheet.getString());
             }
             else if(item == itemPrint){
                 //Do print operation

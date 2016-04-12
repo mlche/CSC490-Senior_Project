@@ -13,4 +13,15 @@ public class TabSheet extends JScrollPane{
     public void setText(String s){
         textArea.setText(s);
     }
+
+    public String getString(){
+        return textArea.getText();
+    }
+
+    public int isEmpty(){
+        if(textArea.getText().length() > 0){
+            return 1;
+        }
+        return 0;
+    }
 }
