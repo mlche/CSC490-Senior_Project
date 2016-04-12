@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
@@ -14,9 +15,12 @@ public class TabSheetUnlimited extends TabSheet{
         jText = new JTextArea();
         setViewportView(jText);
 
-        jText.setBorder(
-                BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(8,8,8,8),
-                        BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
+        //jText.setBorder(
+        //        BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(8,8,8,8),
+         //               BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
+
+        jText.setBorder(new BevelBorder(BevelBorder.LOWERED));
+
         jText.setLineWrap(false);
         jText.setWrapStyleWord(true);
         jText.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
