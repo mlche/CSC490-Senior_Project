@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -152,7 +153,9 @@ class textEditorGUI{
     private JPanel createStatusPanel(){
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-        panel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+
+        Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+        Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 
         //Create label for panel
         statusLabel = new JLabel("Rock on tabbers.");
