@@ -158,7 +158,7 @@ class textEditorGUI{
         Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 
         //Create label for panel
-        statusLabel = new JLabel("Rock on tabbers.");
+        statusLabel = new JLabel("  Rock on, tabbers.");
         statusLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         panel.add(statusLabel);

@@ -7,11 +7,9 @@ import java.awt.*;
  */
 public class TabSheetLimited extends TabSheet{
 
-    private JTextArea jText;
-
     public TabSheetLimited(){
         //  set up the gui under the menu as a text field
-        jText = new JTextArea();
+        JTextArea jText = new JTextArea();
         setViewportView(jText);
 
         jText.setLineWrap(true);

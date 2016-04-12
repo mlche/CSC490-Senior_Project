@@ -9,11 +9,9 @@ import java.awt.*;
  */
 public class TabSheetUnlimited extends TabSheet{
 
-    private JTextArea jText;
-
     public TabSheetUnlimited(){
         //  set up the gui under the menu as a text field
-        jText = new JTextArea();
+        JTextArea jText = new JTextArea();
         setViewportView(jText);
 
         //jText.setBorder(
@@ -37,7 +35,7 @@ public class TabSheetUnlimited extends TabSheet{
 
         setBorder(BorderFactory.createCompoundBorder(raisedbevel, loweredbevel));
 
-        super.textArea = jText;
-
+        //super.textArea = jText;
+        super.setTextArea(jText);
     }
 }
