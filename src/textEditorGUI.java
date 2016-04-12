@@ -18,6 +18,8 @@ class textEditorGUI{
     private JMenuItem itemHelp;
     private JMenuItem itemAbout;
     private JMenuItem itemModify;
+    private JCheckBoxMenuItem itemInsertMode;
+    private JCheckBoxMenuItem itemOverwriteMode;
 
     private TabSheetUnlimited tabSheetUnlimted;
     private TabSheetLimited tabSheetLimited;
@@ -28,6 +30,10 @@ class textEditorGUI{
     //Type of tab sheet to open up
     private final String UNLIMITED = "unlimited";
     private final String LIMITED = "limited";
+
+    //Mode of cursor
+    private final String INSERT = "Insert";
+    private final String OVERWRITE = "Overwrite";
 
     //Panel for bottom bar
     private JPanel statusPanel;
@@ -123,9 +129,21 @@ class textEditorGUI{
 
         //Set up submenu components for Edit menu
         itemModify = new JMenuItem("Modify Tuning");
-        //itemModify.setPreferredSize(dimension);
         itemModify.addActionListener(itemListener);
+
+        JMenu menuCursorMode = new JMenu("Cursor Mode");
+        itemInsertMode = new JCheckBoxMenuItem("Insert");
+        itemOverwriteMode = new JCheckBoxMenuItem("Overwrite");
+        menuCursorMode.add(itemInsertMode);
+        menuCursorMode.add(itemOverwriteMode);
+        itemInsertMode.addActionListener(itemListener);
+        itemOverwriteMode.addActionListener(itemListener);
+
+        itemInsertMode.setState(true);
+        itemOverwriteMode.setState(false);
+
         menu2.add(itemModify);
+        menu2.add(menuCursorMode);
 
         //Set up submenu components for Insert menu
         itemInsertTab = new JMenuItem("Insert Tab");
@@ -158,12 +176,23 @@ class textEditorGUI{
         Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 
         //Create label for panel
-        statusLabel = new JLabel("  Rock on, tabbers.");
+        statusLabel = new JLabel("Cursor mode:  " + INSERT);
         statusLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         panel.add(statusLabel);
 
         return panel;
+    }
+
+    /**
+     * Updates the status bar cursor mode.
+     */
+    private void updateCursorModeStatus(){
+        if(tabSheet.getOverwriteMode()){
+            statusLabel.setText("Cursor mode:  " + OVERWRITE);
+        }
+        else
+            statusLabel.setText("Cursor mode:  " + INSERT);
     }
 
 
@@ -195,6 +224,18 @@ class textEditorGUI{
             else if(item == itemModify){
                 //Start modify menu GUI
                 new TabModifierGUI(frm, tabSheet);
+            }
+            else if(item == itemInsertMode){
+                itemInsertMode.setState(true);
+                itemOverwriteMode.setState(false);
+                tabSheet.setOverwriteMode(false);
+                updateCursorModeStatus();
+            }
+            else if(item == itemOverwriteMode){
+                itemInsertMode.setState(false);
+                itemOverwriteMode.setState(true);
+                tabSheet.setOverwriteMode(true);
+                updateCursorModeStatus();
             }
             else if(item == itemInsertTab){
                 //Start InsertMenuGUI

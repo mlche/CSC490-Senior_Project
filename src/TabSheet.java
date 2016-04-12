@@ -7,7 +7,9 @@ import javax.swing.text.DefaultStyledDocument;
  * Created by ken12_000 on 4/11/2016.
  */
 public class TabSheet extends JScrollPane {
-    JTextArea textArea;
+    private JTextArea textArea;
+    private Boolean overwriteMode;
+    private TabCaret caret;
 
     public void append(String str){
         textArea.append(str);
@@ -35,6 +37,22 @@ public class TabSheet extends JScrollPane {
     public void setTextArea(JTextArea area){
         textArea = area;
         textArea.setDocument(new OverwritableDocument(textArea));
+
+        //Add custom caret
+        caret = new TabCaret();
+        caret.setBlinkRate(500);
+        textArea.setCaret(caret);
+
+        //Have overwrite mode initially off
+        setOverwriteMode(false);
+    }
+
+    /**
+     * Allow user to turn overwrite mode on/off
+     */
+    public void setOverwriteMode(Boolean mode){
+        overwriteMode = mode;
+        caret.setOverwriteMode(mode);
     }
 
     /**
@@ -49,10 +67,17 @@ public class TabSheet extends JScrollPane {
 
         public void insertString(int offset, String str,
                                  AttributeSet as) throws BadLocationException {
-            if(str.length() == 1 && offset != getLength()) {
+            if(overwriteMode && str.length() == 1 && offset != getLength()) {
                 remove(offset, 1);
             }
             super.insertString(offset, str, as);
         }
+    }
+
+    /**
+     * Get the overwrite mode
+     */
+    public Boolean getOverwriteMode(){
+        return overwriteMode;
     }
 }

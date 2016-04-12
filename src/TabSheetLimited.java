@@ -17,9 +17,8 @@ public class TabSheetLimited extends TabSheet{
         jText.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         jText.setEditable(true);
         jText.setMargin(new Insets(60, 60, 60, 60));
-        jText.setCaret(new TabCaret());
 
-        super.textArea = jText;
+        setTextArea(jText);
 
         setPreferredSize(new Dimension(900, 1000));
     }
