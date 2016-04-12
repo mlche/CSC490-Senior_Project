@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -27,8 +29,13 @@ class textEditorGUI{
     private final String UNLIMITED = "unlimited";
     private final String LIMITED = "limited";
 
-    public textEditorGUI(String type) {
+    //Panel for bottom bar
+    private JPanel statusPanel;
 
+    //Status bar label
+    private JLabel statusLabel;
+
+    public textEditorGUI(String type) {
         //Create menu bar for the JFrame
         JMenuBar menuBar = createMenuBar();
 
@@ -45,19 +52,24 @@ class textEditorGUI{
         //Add components to the frame
         frm.setJMenuBar(menuBar);
 
+        //Create status bar located at bottom of frame
+        statusPanel = createStatusPanel();
+
         //Create and add a limited width tab sheet
         if(type.equals(LIMITED)){
             tabSheet = new TabSheetLimited();
-
             //Add the panel to the frame
             Container contentPane = frm.getContentPane();
             contentPane.setLayout(new FlowLayout());
             contentPane.add(tabSheet);
         }
         else{  //Create and add an unlimited width tab sheet
-            // Get tab sheet
             tabSheet = new TabSheetUnlimited();
-            frm.add(tabSheet);
+            Container contentPane = frm.getContentPane();
+            contentPane.setLayout(new BorderLayout());
+
+            contentPane.add(tabSheet);
+            contentPane.add(statusPanel, BorderLayout.SOUTH);
         }
 
         tfc = new TabFileChooser(tabSheet);
@@ -132,6 +144,28 @@ class textEditorGUI{
 
         return menubar;
     }
+
+    /**
+     * Create a status bar to be located at the bottom of the frame.
+     * JLabel statusLabel will be the status displayed in the bar.
+     * Status bar is a JPanel object with the JLabel inside.
+     */
+    private JPanel createStatusPanel(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+        Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+        Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+
+        //Create label for panel
+        statusLabel = new JLabel("  Rock on, tabbers.");
+        statusLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        panel.add(statusLabel);
+
+        return panel;
+    }
+
 
     /**
      * Private class for menu item listener.
