@@ -7,7 +7,7 @@ import java.awt.*;
  */
 public class TabSheetLimited extends TabSheet{
 
-    public TabSheetLimited(){
+    public TabSheetLimited(textEditorGUI gui){
         //  set up the gui under the menu as a text field
         JTextArea jText = new JTextArea();
         setViewportView(jText);
@@ -19,6 +19,7 @@ public class TabSheetLimited extends TabSheet{
         jText.setMargin(new Insets(60, 60, 60, 60));
 
         setTextArea(jText);
+        setGUI(gui);
 
         setPreferredSize(new Dimension(900, 1000));
     }

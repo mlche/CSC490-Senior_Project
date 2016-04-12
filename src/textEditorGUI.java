@@ -63,14 +63,14 @@ class textEditorGUI{
 
         //Create and add a limited width tab sheet
         if(type.equals(LIMITED)){
-            tabSheet = new TabSheetLimited();
+            tabSheet = new TabSheetLimited(this);
             //Add the panel to the frame
             Container contentPane = frm.getContentPane();
             contentPane.setLayout(new FlowLayout());
             contentPane.add(tabSheet);
         }
         else{  //Create and add an unlimited width tab sheet
-            tabSheet = new TabSheetUnlimited();
+            tabSheet = new TabSheetUnlimited(this);
             Container contentPane = frm.getContentPane();
             contentPane.setLayout(new BorderLayout());
 
@@ -187,14 +187,18 @@ class textEditorGUI{
     /**
      * Updates the status bar cursor mode.
      */
-    private void updateCursorModeStatus(){
+    public void updateCursorModeStatus(){
         if(tabSheet.getOverwriteMode()){
             statusLabel.setText("Cursor mode:  " + OVERWRITE);
+            itemInsertMode.setState(false);
+            itemOverwriteMode.setState(true);
         }
-        else
+        else {
             statusLabel.setText("Cursor mode:  " + INSERT);
+            itemInsertMode.setState(true);
+            itemOverwriteMode.setState(false);
+        }
     }
-
 
     /**
      * Private class for menu item listener.
@@ -226,14 +230,10 @@ class textEditorGUI{
                 new TabModifierGUI(frm, tabSheet);
             }
             else if(item == itemInsertMode){
-                itemInsertMode.setState(true);
-                itemOverwriteMode.setState(false);
                 tabSheet.setOverwriteMode(false);
                 updateCursorModeStatus();
             }
             else if(item == itemOverwriteMode){
-                itemInsertMode.setState(false);
-                itemOverwriteMode.setState(true);
                 tabSheet.setOverwriteMode(true);
                 updateCursorModeStatus();
             }

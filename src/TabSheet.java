@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by ken12_000 on 4/11/2016.
@@ -10,6 +12,7 @@ public class TabSheet extends JScrollPane {
     private JTextArea textArea;
     private Boolean overwriteMode;
     private TabCaret caret;
+    private textEditorGUI GUI;
 
     public void append(String str){
         textArea.append(str);
@@ -31,6 +34,13 @@ public class TabSheet extends JScrollPane {
     }
 
     /**
+     * Set text editor GUI so that insert button can update status of GUI (menu and bar)
+     */
+    public void setGUI(textEditorGUI gui){
+        GUI = gui;
+    }
+
+    /**
      * Set the text area for the tab sheet.
      * Assigning the area an overwritable document.
      */
@@ -45,6 +55,15 @@ public class TabSheet extends JScrollPane {
 
         //Have overwrite mode initially off
         setOverwriteMode(false);
+
+        textArea.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_INSERT){
+                    toggleOverwriteMode();
+                }
+            }
+        });
     }
 
     /**
@@ -53,6 +72,20 @@ public class TabSheet extends JScrollPane {
     public void setOverwriteMode(Boolean mode){
         overwriteMode = mode;
         caret.setOverwriteMode(mode);
+    }
+
+    /**
+     * Toggle the overwrite mode
+     */
+    private void toggleOverwriteMode(){
+        if(overwriteMode) {
+            setOverwriteMode(false);
+            GUI.updateCursorModeStatus();
+        }
+        else {
+            setOverwriteMode(true);
+            GUI.updateCursorModeStatus();
+        }
     }
 
     /**
