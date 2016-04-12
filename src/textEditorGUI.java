@@ -259,23 +259,14 @@ class textEditorGUI{
             JFrame frame = (JFrame)e.getSource();
             boolean close;  //Will be set to true unless user selects "Cancel"
 
-            //Prompt user to save document with "Yes" "No" or "Cancel"
-            int n = JOptionPane.showConfirmDialog(frame,
-                    "Would you like to save before exiting?",
-                    "Exiting...",
-                    JOptionPane.YES_NO_CANCEL_OPTION);
+            //  handle saving if necessary(text area is unique from file)
+            int n = tfc.alteredText();
 
-            //Get user's answer from prompt
-            if(n == JOptionPane.YES_OPTION){
-                //Save their document
-                close = true;
-            }
-            else if(n == JOptionPane.NO_OPTION){
-                close = true;
-            }
-            else {
-                //"Cancel" option was selected.  Do not close application.
+            if(n == JOptionPane.CANCEL_OPTION){
                 close = false;
+            }
+            else{
+                close = true;
             }
 
             //Close application if close == true
