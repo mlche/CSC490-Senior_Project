@@ -21,6 +21,7 @@ public class TabSheetLimited extends TabSheet{
         setTextArea(jText);
         setGUI(gui);
 
+        setMinimumSize(new Dimension(900, 1000));
         setPreferredSize(new Dimension(900, 1000));
     }
 }

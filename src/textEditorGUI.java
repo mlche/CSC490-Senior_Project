@@ -67,6 +67,7 @@ class textEditorGUI{
             //Add the panel to the frame
             Container contentPane = frm.getContentPane();
             contentPane.setLayout(new FlowLayout());
+
             contentPane.add(tabSheet);
         }
         else{  //Create and add an unlimited width tab sheet
@@ -81,7 +82,7 @@ class textEditorGUI{
         tfc = new TabFileChooser(tabSheet);
 
         //Size will go to when minimized
-        frm.setPreferredSize(new Dimension(1000, 1000));
+        frm.setPreferredSize(new Dimension(900, 700));
 
         //  make the gui visible and full screen
         frm.pack();

@@ -25,7 +25,7 @@ public class TabSheetUnlimited extends TabSheet{
         jText.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         jText.setEditable(true);
 
-       // jText.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 0));
+        jText.setBorder(BorderFactory.createEmptyBorder(2, 5, 0, 0));
 
         Border raisedbevel = BorderFactory.createRaisedBevelBorder();
         Border loweredbevel = BorderFactory.createLoweredBevelBorder();
