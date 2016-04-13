@@ -4,6 +4,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by ken12_000 on 4/11/2016.
@@ -63,7 +66,7 @@ public class TabSheet extends JScrollPane {
                     toggleOverwriteMode();
                 }
                 else if(e.getKeyCode() == KeyEvent.VK_MINUS){
-                    textArea.insert("-----", textArea.getCaretPosition());
+                    increaseTabLength();
                 }
             }
         });
@@ -115,5 +118,59 @@ public class TabSheet extends JScrollPane {
      */
     public Boolean getOverwriteMode(){
         return overwriteMode;
+    }
+
+    /**
+     * Find all lines previous and after the line that the cursor is on.
+     * Only keep lines up until blank lines "" are hit.
+     * This will result in a set of lines that are in the same section of tablature that the cursor is in.
+     * Now increase each of these lines by one '-' symbol.
+     */
+    private void increaseTabLength(){
+        //Create an array with enough indexes for each line in the text area.
+        //String[] lines = new String[textArea.getLineCount()];
+        ArrayList<String> lines = new ArrayList<>();
+
+        try {
+            //Get the line that the offset is on
+            int pos = textArea.getLineOfOffset(textArea.getCaretPosition());
+            System.out.println(pos);
+
+            //Fill an array with all lines in the text area
+            int i = 0;
+            for (String line : textArea.getText().split("\\n")) {
+                lines.add(line);
+                i++;
+            }
+
+            //Check to see if line of cursor is blank, if don't increase any tabs
+            if (!lines.get(pos).equals("")) {
+                //Fill an array with all lines previous to the offset line UP TO A BLANK LINE
+                //Add elements to the front of the array list since they are being read backwards
+                ArrayList<String> prev = new ArrayList<String>();
+                for (int j = pos - 1; j >= 0; j--) {
+                    if (!lines.get(j).equals("")) {
+                        prev.add(0, lines.get(j));
+                    } else
+                        break;
+                }
+
+                //Fill an array with all lines INCLUDING and after the offset line UP TO A BLANK LINE
+                ArrayList<String> next = new ArrayList<String>();
+                for (int k = pos + 1; k < lines.size(); k++) {
+                    if (!lines.get(k).equals("")) {
+                        next.add(lines.get(k));
+                    } else
+                        break;
+                }
+
+                //Combine the two lists to get the whole section of tablature
+                ArrayList<String> section = new ArrayList<>(prev);
+                section.addAll(next);
+
+            }
+        }catch(BadLocationException e1){
+            e1.printStackTrace();
+        }
     }
 }

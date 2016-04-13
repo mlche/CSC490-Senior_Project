@@ -80,6 +80,9 @@ class textEditorGUI{
 
         tfc = new TabFileChooser(tabSheet);
 
+        //Size will go to when minimized
+        frm.setPreferredSize(new Dimension(1000, 1000));
+
         //  make the gui visible and full screen
         frm.pack();
         frm.setExtendedState(Frame.MAXIMIZED_BOTH);
