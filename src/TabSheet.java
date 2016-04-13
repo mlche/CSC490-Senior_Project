@@ -16,6 +16,7 @@ public class TabSheet extends JScrollPane {
     private Boolean overwriteMode;
     private TabCaret caret;
     private textEditorGUI GUI;
+    private Boolean autoIncrease;
 
     public void append(String str){
         textArea.append(str);
@@ -58,6 +59,7 @@ public class TabSheet extends JScrollPane {
 
         //Have overwrite mode initially off
         setOverwriteMode(false);
+        setAutoIncrease(true);
 
         textArea.addKeyListener(new KeyAdapter() {
             @Override
@@ -66,7 +68,9 @@ public class TabSheet extends JScrollPane {
                     toggleOverwriteMode();
                 }
                 else if(e.getKeyCode() == KeyEvent.VK_MINUS){
-                    increaseTabLength();
+                    if(autoIncrease) {
+                        increaseTabLength();
+                    }
                 }
             }
         });
@@ -81,6 +85,14 @@ public class TabSheet extends JScrollPane {
     }
 
     /**
+     * ALlow user to have auto-increase mode on or off.
+     * Increases all tab lines together
+     */
+    public void setAutoIncrease(Boolean state){
+        autoIncrease = state;
+    }
+
+    /**
      * Toggle the overwrite mode
      */
     private void toggleOverwriteMode(){
@@ -91,6 +103,17 @@ public class TabSheet extends JScrollPane {
         else {
             setOverwriteMode(true);
             GUI.updateCursorModeStatus();
+        }
+    }
+
+    private void toggleAutoIncrease(){
+        if(autoIncrease){
+            setAutoIncrease(false);
+            //GUI.updateAutoIncreaseStatus();
+        }
+        else{
+            setAutoIncrease(true);
+            //GUI.updateAutoIncreaseStatus();
         }
     }
 
@@ -121,6 +144,13 @@ public class TabSheet extends JScrollPane {
     }
 
     /**
+     * Get auto-incrase mode
+     */
+    public Boolean getAutoIncrease() {
+        return autoIncrease;
+    }
+
+    /**
      * Find all lines previous and after the line that the cursor is on.
      * Only keep lines up until blank lines "" are hit.
      * This will result in a set of lines that are in the same section of tablature that the cursor is in.
@@ -147,26 +177,35 @@ public class TabSheet extends JScrollPane {
             if (!lines.get(pos).equals("")) {
                 //Fill an array with all lines previous to the offset line UP TO A BLANK LINE
                 //Add elements to the front of the array list since they are being read backwards
-                ArrayList<String> prev = new ArrayList<String>();
+                //ArrayList<String> prev = new ArrayList<String>();
+                ArrayList<Integer> prev = new ArrayList<Integer>();
                 for (int j = pos - 1; j >= 0; j--) {
                     if (!lines.get(j).equals("")) {
-                        prev.add(0, lines.get(j));
+                        prev.add(0, j);
                     } else
                         break;
                 }
 
                 //Fill an array with all lines INCLUDING and after the offset line UP TO A BLANK LINE
-                ArrayList<String> next = new ArrayList<String>();
+                //ArrayList<String> next = new ArrayList<String>();
+                ArrayList<Integer> next = new ArrayList<Integer>();
                 for (int k = pos + 1; k < lines.size(); k++) {
                     if (!lines.get(k).equals("")) {
-                        next.add(lines.get(k));
+                        next.add(k);
                     } else
                         break;
                 }
 
                 //Combine the two lists to get the whole section of tablature
-                ArrayList<String> section = new ArrayList<>(prev);
+                ArrayList<Integer> section = new ArrayList<>(prev);
                 section.addAll(next);
+
+                //Add a dash to each line in section
+                int end;
+                for(int j = 0; j < section.size(); j++){
+                    end = textArea.getLineEndOffset(section.get(j));
+                    textArea.insert("-", end - 2);
+                }
 
             }
         }catch(BadLocationException e1){

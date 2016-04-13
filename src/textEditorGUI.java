@@ -20,6 +20,8 @@ class textEditorGUI{
     private JMenuItem itemModify;
     private JCheckBoxMenuItem itemInsertMode;
     private JCheckBoxMenuItem itemOverwriteMode;
+    private JCheckBoxMenuItem itemAutoIncreaseOn;
+    private JCheckBoxMenuItem itemAutoIncreaseOff;
 
     private TabSheetUnlimited tabSheetUnlimted;
     private TabSheetLimited tabSheetLimited;
@@ -32,14 +34,20 @@ class textEditorGUI{
     private final String LIMITED = "limited";
 
     //Mode of cursor
-    private final String INSERT = "Insert";
-    private final String OVERWRITE = "Overwrite";
+    private final String INSERT = "Cursor mode:  Insert";
+    private final String OVERWRITE = "Cursor mode:  Overwrite";
+
+    //MOde of auto-increase
+    private final String ON = "Auto-increase:  ON";
+    private final String OFF = "Auto-increase:  OFF";
+
 
     //Panel for bottom bar
     private JPanel statusPanel;
 
     //Status bar label
-    private JLabel statusLabel;
+    private JLabel statusCursor;
+    private JLabel statusAutoIncrease;
 
     public textEditorGUI(String type) {
         //Create menu bar for the JFrame
@@ -146,8 +154,20 @@ class textEditorGUI{
         itemInsertMode.setState(true);
         itemOverwriteMode.setState(false);
 
+        JMenu menuAutoIncrease = new JMenu("Auto-Increase");
+        itemAutoIncreaseOn = new JCheckBoxMenuItem("On");
+        itemAutoIncreaseOff = new JCheckBoxMenuItem("Off");
+        itemAutoIncreaseOn.addActionListener(itemListener);
+        itemAutoIncreaseOff.addActionListener(itemListener);
+        menuAutoIncrease.add(itemAutoIncreaseOff);
+        menuAutoIncrease.add(itemAutoIncreaseOn);
+
+        itemAutoIncreaseOff.setState(false);
+        itemAutoIncreaseOn.setState(true);
+
         menu2.add(itemModify);
         menu2.add(menuCursorMode);
+        menu2.add(menuAutoIncrease);
 
         //Set up submenu components for Insert menu
         itemInsertTab = new JMenuItem("Insert Tab");
@@ -174,16 +194,22 @@ class textEditorGUI{
      */
     private JPanel createStatusPanel(){
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.setLayout(new GridLayout(1, 3));
 
         Border raisedbevel = BorderFactory.createRaisedBevelBorder();
         Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 
         //Create label for panel
-        statusLabel = new JLabel("Cursor mode:  " + INSERT);
-        statusLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        statusCursor = new JLabel(INSERT);
+        statusCursor.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //statusCursor.setPreferredSize(new Dimension(300, 0));
 
-        panel.add(statusLabel);
+        statusAutoIncrease = new JLabel(ON);
+        statusAutoIncrease.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        panel.add(statusCursor);
+        panel.add(statusAutoIncrease);
+        panel.add(new JLabel());
 
         return panel;
     }
@@ -193,14 +219,30 @@ class textEditorGUI{
      */
     public void updateCursorModeStatus(){
         if(tabSheet.getOverwriteMode()){
-            statusLabel.setText("Cursor mode:  " + OVERWRITE);
+            statusCursor.setText(OVERWRITE);
             itemInsertMode.setState(false);
             itemOverwriteMode.setState(true);
         }
         else {
-            statusLabel.setText("Cursor mode:  " + INSERT);
+            statusCursor.setText(INSERT);
             itemInsertMode.setState(true);
             itemOverwriteMode.setState(false);
+        }
+    }
+
+    /**
+     * Updates the status bar auto-increase mode
+     */
+    public void updateAutoIncreaseStatus(){
+        if(tabSheet.getAutoIncrease()){
+            statusAutoIncrease.setText(ON);
+            itemAutoIncreaseOff.setState(false);
+            itemAutoIncreaseOn.setState(true);
+        }
+        else{
+            statusAutoIncrease.setText(OFF);
+            itemAutoIncreaseOff.setState(true);
+            itemAutoIncreaseOn.setState(false);
         }
     }
 
@@ -240,6 +282,14 @@ class textEditorGUI{
             else if(item == itemOverwriteMode){
                 tabSheet.setOverwriteMode(true);
                 updateCursorModeStatus();
+            }
+            else if(item == itemAutoIncreaseOff){
+                tabSheet.setAutoIncrease(false);
+                updateAutoIncreaseStatus();
+            }
+            else if(item == itemAutoIncreaseOn){
+                tabSheet.setAutoIncrease(true);
+                updateAutoIncreaseStatus();
             }
             else if(item == itemInsertTab){
                 //Start InsertMenuGUI
