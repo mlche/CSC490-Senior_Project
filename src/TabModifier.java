@@ -38,7 +38,6 @@ public class TabModifier {
                 if(line.charAt(1) == '|' || line.charAt(2) == '|'){
 
                     String s = "";
-                    String num = "";
                     char t = line.charAt(c);
                     int sl = line.length();
 
@@ -56,7 +55,8 @@ public class TabModifier {
                         c++;
                     }
 
-                    while(sl > c){
+
+                    /*while(sl > c){
                         t = line.charAt(c);
 
                         int k = Math.abs(steps);
@@ -77,17 +77,18 @@ public class TabModifier {
                         else if(k == 1 && tuningTo.equalsIgnoreCase("Eb") && tuningFrom.equalsIgnoreCase("D")
                                 && stringNum == 5){
                             s += dropD(t,line.charAt(c+1),-1);
-                        }*/
-                        //else{
-                        //    s += dropD(t,line.charAt(c+1),steps);
-                        //}
+                        }
+                        else{
+                            s += dropD(t,line.charAt(c+1),steps);
+                        }
 
                         //s += dropD(t, line.charAt(c+1),steps);
                         c++;
-                    }
-                    System.out.println(line);
+                    }*/
 
-                    altTab += s + "\n";
+                    altTab += s + line.substring(c,sl)+"\n";
+
+                    //altTab += s + "\n";
                     s = "";
 
                     if(stringNum < 6) stringNum++;
@@ -123,7 +124,7 @@ public class TabModifier {
             str += Integer.toString(m);
         }
         else{
-            str += Character.toString(t);
+            return Character.toString(t);
         }
         return str;
     }
@@ -179,19 +180,19 @@ public class TabModifier {
     }
 
     private String newStrTune(){
-        if(tuningTo == "E" && stringNum == 5) return "E";
-        else if(tuningTo == "D" && stringNum == 5) return "D";
-        else if(tuningTo == "E" || tuningTo == "D" && stringNum == 0) return "e";
-        else if(tuningTo == "E" || tuningTo == "D" && stringNum == 1) return "B";
-        else if(tuningTo == "E" || tuningTo == "D" && stringNum == 2) return "G";
-        else if(tuningTo == "E" || tuningTo == "D" && stringNum == 3) return "D";
-        else if(tuningTo == "E" || tuningTo == "D" && stringNum == 4) return "A";
-        else if(tuningTo == "Eb" && stringNum == 0) return "eb";
-        else if(tuningTo == "Eb" && stringNum == 1) return "Bb";
-        else if(tuningTo == "Eb" && stringNum == 2) return "Gb";
-        else if(tuningTo == "Eb" && stringNum == 3) return "Db";
-        else if(tuningTo == "Eb" && stringNum == 4) return "Ab";
-        else if(tuningTo == "Eb" && stringNum == 5) return "Eb";
+        if(tuningTo.equalsIgnoreCase("E") && stringNum == 5) return "E";
+        else if(tuningTo.equalsIgnoreCase("D") && stringNum == 5) return "D";
+        else if((tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D")) && stringNum == 0) return "e";
+        else if((tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D")) && stringNum == 1) return "B";
+        else if((tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D")) && stringNum == 2) return "G";
+        else if((tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D")) && stringNum == 3) return "D";
+        else if((tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D")) && stringNum == 4) return "A";
+        else if(tuningTo.equalsIgnoreCase("Eb") && stringNum == 0) return "eb";
+        else if(tuningTo.equalsIgnoreCase("Eb") && stringNum == 1) return "Bb";
+        else if(tuningTo.equalsIgnoreCase("Eb") && stringNum == 2) return "Gb";
+        else if(tuningTo.equalsIgnoreCase("Eb") && stringNum == 3) return "Db";
+        else if(tuningTo.equalsIgnoreCase("Eb") && stringNum == 4) return "Ab";
+        else if(tuningTo.equalsIgnoreCase("Eb") && stringNum == 5) return "Eb";
         else return "";
     }
 }
