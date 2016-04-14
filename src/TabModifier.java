@@ -33,67 +33,65 @@ public class TabModifier {
         int steps = getSteps(tun1,tun2);
 
         if(steps != 0){
-            int marker = 0;
+
             for(String line : tabSheet.getString().split("\\n")){
-                if(line.charAt(1) == '|' || line.charAt(2) == '|'){
-
+                if(line.length() > 2){
                     String s = "";
-                    char t = line.charAt(c);
-                    int sl = line.length();
+                    if(line.charAt(1) == '|' || line.charAt(2) == '|') {
 
-                    if(marker == 0 && t == 'G'){
-                        stringNum += 2;
-                        marker += 1;
-                    }
-                    else if(marker == 0 && stringNum > 0) marker = 1;
+                        char t = line.charAt(c);
+                        int sl = line.length();
 
-                    s += newStrTune();
-                    c++;
-                    t = line.charAt(c);
+                        if (stringNum == 0 && t == 'G') {
+                            stringNum += 2;
+                        }
 
-                    if(t != '|'){
+                        s += newStrTune();
                         c++;
-                    }
-
-                    char next = ' ';
-                    while(sl > c){
                         t = line.charAt(c);
-                        if(c != (sl-1)) next = line.charAt(c+1);
 
-                        int k = Math.abs(steps);
-
-                        if(k == 2 && stringNum < 5) {s += Character.toString(t);}
-                        else if(k == 2 && stringNum == 5) {
-                            s += dropD(t,next,steps);
-                        }
-                        else if(k == 1 && tuningTo.equalsIgnoreCase("D") && stringNum < 5) {
-                            s += dropD(t,next,-1);
-                        }
-                        else if(k == 1 && (tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D"))
-                                && stringNum == 5){
-                            s += dropD(t,next,steps);
-                        }
-                        else if(k == 1 && (tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D"))
-                                && stringNum < 5){
-                            s += dropD(t,next,-1);
-                        }
-                        else if(k == 1 && tuningTo.equalsIgnoreCase("Eb") && stringNum < 5){
-                            s += dropD(t,next,1);
-                        }
-                        else if(k == 1 && tuningTo.equalsIgnoreCase("Eb") && stringNum == 5){
-                            s += dropD(t,next,steps);
+                        if (t != '|') {
+                            c++;
                         }
 
-                        c++;
+                        char next = ' ';
+                        while (sl > c) {
+                            t = line.charAt(c);
+                            if (c != (sl - 1)) next = line.charAt(c + 1);
+
+                            int k = Math.abs(steps);
+
+                            if (k == 2 && stringNum < 5) {
+                                s += Character.toString(t);
+                            } else if (k == 2 && stringNum == 5) {
+                                s += dropD(t, next, steps);
+                            } else if (k == 1 && tuningTo.equalsIgnoreCase("D") && stringNum < 5) {
+                                s += dropD(t, next, -1);
+                            } else if (k == 1 && (tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D"))
+                                    && stringNum == 5) {
+                                s += dropD(t, next, steps);
+                            } else if (k == 1 && (tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D"))
+                                    && stringNum < 5) {
+                                s += dropD(t, next, -1);
+                            } else if (k == 1 && tuningTo.equalsIgnoreCase("Eb") && stringNum < 5) {
+                                s += dropD(t, next, 1);
+                            } else if (k == 1 && tuningTo.equalsIgnoreCase("Eb") && stringNum == 5) {
+                                s += dropD(t, next, steps);
+                            }
+
+                            c++;
+                        }
                     }
-
+                    //creating the string to update the text area with
                     altTab += s + "\n";
+
+                    //reset value
                     s = "";
 
-                    if(stringNum < 6) stringNum++;
+                    //set the string count handling multiple lines of tablature
+                    if(stringNum < 5) stringNum++;
                     else {
                         stringNum = 0;
-                        marker = 0;
                     }
                 }
                 else{
@@ -170,6 +168,7 @@ public class TabModifier {
             tuningTo = "D";
         }
 
+        //determine the half-steps to change string notation with
         if(k1 == k2 && k11 == k21) steps = 0;
         else if(k1 == k2 && k11 == 'b') steps = -1;
         else if(k1 == k2 && k21 == 'b') steps = 1;
@@ -182,6 +181,8 @@ public class TabModifier {
     }
 
     private String newStrTune(){
+
+        //Upon user altering tuning, set the string representations accordingly
         if(tuningTo.equalsIgnoreCase("E") && stringNum == 5) return "E";
         else if(tuningTo.equalsIgnoreCase("D") && stringNum == 5) return "D";
         else if((tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D")) && stringNum == 0) return "e";
