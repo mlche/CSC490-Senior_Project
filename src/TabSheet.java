@@ -37,6 +37,10 @@ public class TabSheet extends JScrollPane {
         return 0;
     }
 
+    public int numRows(){
+        return textArea.getLineCount();
+    }
+
     /**
      * Set text editor GUI so that insert button can update status of GUI (menu and bar)
      */

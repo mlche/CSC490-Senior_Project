@@ -113,8 +113,8 @@ public class TabModifierGUI {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Modify Tablature
-            TabModifier tabModifier = new TabModifier();
-
+            TabModifier tabModifier = new TabModifier(textArea);
+            tabModifier.modifyTab((String)currentTuningBox.getSelectedItem(), (String)newTuningBox.getSelectedItem());
 
             //Close dialog
             dialog.dispose();
