@@ -55,40 +55,39 @@ public class TabModifier {
                         c++;
                     }
 
-
-                    /*while(sl > c){
+                    char next = ' ';
+                    while(sl > c){
                         t = line.charAt(c);
+                        if(c != (sl-1)) next = line.charAt(c+1);
 
                         int k = Math.abs(steps);
 
-                        /*if(k == 2 && stringNum < 5) {s += Character.toString(t);}
+                        if(k == 2 && stringNum < 5) {s += Character.toString(t);}
                         else if(k == 2 && stringNum == 5) {
-                            s += dropD(t,line.charAt(c+1),steps);
+                            s += dropD(t,next,steps);
                         }
                         else if(k == 1 && tuningTo.equalsIgnoreCase("D") && stringNum < 5) {
-                            s += dropD(t,line.charAt(c+1),1);
+                            s += dropD(t,next,-1);
                         }
-                        else if(k == 1 && tuningTo.equalsIgnoreCase("D") && stringNum == 5){
-                            s += dropD(t,line.charAt(c+1),1);
+                        else if(k == 1 && (tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D"))
+                                && stringNum == 5){
+                            s += dropD(t,next,steps);
+                        }
+                        else if(k == 1 && (tuningTo.equalsIgnoreCase("E") || tuningTo.equalsIgnoreCase("D"))
+                                && stringNum < 5){
+                            s += dropD(t,next,-1);
                         }
                         else if(k == 1 && tuningTo.equalsIgnoreCase("Eb") && stringNum < 5){
-                            s += dropD(t,line.charAt(c+1),1);
+                            s += dropD(t,next,1);
                         }
-                        else if(k == 1 && tuningTo.equalsIgnoreCase("Eb") && tuningFrom.equalsIgnoreCase("D")
-                                && stringNum == 5){
-                            s += dropD(t,line.charAt(c+1),-1);
-                        }
-                        else{
-                            s += dropD(t,line.charAt(c+1),steps);
+                        else if(k == 1 && tuningTo.equalsIgnoreCase("Eb") && stringNum == 5){
+                            s += dropD(t,next,steps);
                         }
 
-                        //s += dropD(t, line.charAt(c+1),steps);
                         c++;
-                    }*/
+                    }
 
-                    altTab += s + line.substring(c,sl)+"\n";
-
-                    //altTab += s + "\n";
+                    altTab += s + "\n";
                     s = "";
 
                     if(stringNum < 6) stringNum++;
@@ -121,6 +120,9 @@ public class TabModifier {
 
             int q = Integer.parseInt(num);
             int m = q + steps;
+
+            //WILL NEED TO IMPLEMENT A CHECK FOR NEGATIVE FRETS OR FRETS PAST 20
+
             str += Integer.toString(m);
         }
         else{
