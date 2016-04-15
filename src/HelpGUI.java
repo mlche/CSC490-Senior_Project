@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.text.BadLocationException;
@@ -13,7 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static java.awt.Font.BOLD;
 import static java.awt.Font.DIALOG;
+import static java.awt.Font.SANS_SERIF;
 
 /**
  * The help screen GUI.
@@ -103,7 +106,7 @@ public class HelpGUI {
         menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
 
         //Set a border on the menu
-        menuBar.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+        //menuBar.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
 
         return menuBar;
     }
@@ -134,9 +137,11 @@ public class HelpGUI {
         mainPanel.setBackground(Color.WHITE);
 
         textPane = new JTextPane();
-        textPane.setPreferredSize(new Dimension(800, 500));
+        textPane.setPreferredSize(new Dimension(600, 500));
         doc = textPane.getStyledDocument();
+        textPane.setFont(new Font(SANS_SERIF, Font.PLAIN, 16));
         textPane.setEditable(false);
+        textPane.setBorder(new BevelBorder(BevelBorder.LOWERED));
 
         mainPanel.add(textPane);
     }

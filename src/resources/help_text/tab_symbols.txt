@@ -1,14 +1,21 @@
-Tablature Symbols (commonly-used)
+   Tablature Symbols
 
-/ = slide up
-\ = slide down
-h = hammer-on
-p = pull-off
-~ = vibrato
-+ = harmonic
-x = Dead note
-b = Bend
-pb = Pre-bend
-br = Bend release
-pbr = Pre-bend release
-brb = Bend release bend
+   / = slide up
+   \ = slide down
+   h = hammer-on
+   p = pull-off
+   ~ = vibrato
+   + = harmonic
+   x = Dead note
+   b = Bend
+   pb = Pre-bend
+   br = Bend release
+   pbr = Pre-bend release
+   brb = Bend release bend
+
+   *These are tablature symbols commonly found in text-style
+    tablature seen on the Internet.
+
+    Artists can feel free to use any symbols they please in their
+    own tablature.
+
