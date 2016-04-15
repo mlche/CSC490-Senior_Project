@@ -101,8 +101,10 @@ public class InsertMenuGUI {
         //Create spinner for selecting the number of tab sections
         model = new SpinnerNumberModel(1, 1, 20, 1);
         sectionsSpinner = new JSpinner(model);
-        sectionsSpinner.setEditor(new JSpinner.DefaultEditor(sectionsSpinner));
-
+        //sectionsSpinner.setEditor(new JSpinner.DefaultEditor(sectionsSpinner));
+        JSpinner.DefaultEditor editor = new JSpinner.DefaultEditor(sectionsSpinner);
+        editor.getTextField().setHorizontalAlignment(JTextField.CENTER);
+        sectionsSpinner.setEditor(editor);
         sectionsSpinner.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         //Create insert button in new layout so it can be centered

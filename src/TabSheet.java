@@ -72,11 +72,23 @@ public class TabSheet extends JScrollPane {
                     toggleOverwriteMode();
                 }
                 else if(e.getKeyCode() == KeyEvent.VK_MINUS){
+
+                    //Get current overwrite mode
+                    boolean currentOverMode = overwriteMode;
+
+                    //Set to overwrite mode
+                    setOverwriteMode(false);
+
                     if(autoIncrease) {
                         increaseTabLength();
                     }
+
+                    setOverwriteMode(currentOverMode);
                 }
             }
+        });
+
+        this.addKeyListener(new KeyAdapter() {
         });
     }
 
