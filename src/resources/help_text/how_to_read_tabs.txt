@@ -1,0 +1,37 @@
+The first thing you will notice about tabs is that there are six lines. They represent the six strings of the guitar and typically look like this:
+e|------------------------|
+B|------------------------|
+G|------------------------|
+D|------------------------|
+A|------------------------|
+E|------------------------|
+We have written the string names (the note each string plays when you don't hold down any frets) on the left, this may not be given in all tabs. If it is not given, you'll have to assume that it is the same as we've written here.
+
+Note that the top string of your guitar (the 6th or E string) is written at the bottom of the tab, and the bottom string (1st of e string) is written at the top. Many beginners get confused at this, but this is the standard way to write tabs.
+
+Also note that in some cases the string names may be written differently. These are the cases when the song is not played with standard tuning. That means the open strings don't play the notes E, A, D, G, B, e but some other notes. As this lesson is for beginners, we will stick to standard tuning guitar tabs.
+
+The next thing you notice on a tab is the numbers. The numbers represent frets. 1 means 1st fret, 2 means second fret and so on. A 0 (zero) means open string. For example:
+e|--------2-----------------|
+B|------3---3---------------|
+G|----2-------2-------------|
+D|--0-----------------------|
+A|--------------------------|
+E|--------------------------|
+Tabs are meant to be read from left to right. Here in this tab, first you play D string at open fret, then G string at 2nd Fret, then B string and 3rd fret and so on. If you know your chords, then you would notice that this tab plays the notes of a D major chord.
+
+Another example:
+e|--0--0--0--2--2--------------|
+B|--0--0--2--3--3--------------|
+G|--1--1--2--2--2--------------|
+D|--2--2--2--0--0--------------|
+A|--2--2--0--x--x--------------|
+E|--0--0--x--x--x--------------|
+The difference between this tab and the first tab is that here multiple strings are hit at the same time, so this indicates strumming. At first you hold down and A and D string and 2nd fret and G string at 1st fret and play all 6 strings. If you're familiar with basic guitar chords, then you will notice that this is E major chord. According to the tab, E major chord is strummed twice. The next chord is A major which is strummed once and then D major is strummed twice.
+
+The x indicates that that string is not played. Meaning you don't hit that string with your strumming hand. It could also indicate a dead note. This means that you play that string with your strumming hand but it doesn't make a sound because you muted that string with your other hand. Holding a string lightly (rather than pressing it firmly down at the fretboard) and hitting it creates a dead note. Whether or not a string is not played or it's a dead note can be confusing as they are both represented by x. Listening to the song will often give you a clue. For a beginner, assume that the x indicates that the string is not played.
+
+
+
+Courtesy of UGTeam at Ultimate-Guitar.com
+https://www.ultimate-guitar.com/lessons/for_beginners/how_to_read_tabs.html

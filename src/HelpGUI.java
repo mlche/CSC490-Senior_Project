@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.text.BadLocationException;
@@ -14,9 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static java.awt.Font.BOLD;
-import static java.awt.Font.DIALOG;
-import static java.awt.Font.SANS_SERIF;
+import static java.awt.Font.*;
 
 /**
  * The help screen GUI.
@@ -72,7 +71,7 @@ public class HelpGUI {
 
         //Display the window
         frame.pack();
-        //frame.setSize(new Dimension(800, 500));
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null); // Center frame on screen
         frame.setVisible(true);
     }
@@ -104,6 +103,9 @@ public class HelpGUI {
         menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
         menuBar.add(tuningsButton);
         menuBar.add(Box.createRigidArea(new Dimension(0, 100)));
+
+        //Set default to how to button
+        howToButton.setFont(PRESSED_FONT);
 
         //Set a border on the menu
         //menuBar.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 0, Color.BLACK));
@@ -139,11 +141,19 @@ public class HelpGUI {
         textPane = new JTextPane();
         textPane.setPreferredSize(new Dimension(600, 500));
         doc = textPane.getStyledDocument();
-        textPane.setFont(new Font(SANS_SERIF, Font.PLAIN, 16));
+        textPane.setFont(new Font(MONOSPACED, Font.PLAIN, 12));
         textPane.setEditable(false);
-        textPane.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        //textPane.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        textPane.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createBevelBorder(BevelBorder.LOWERED), BorderFactory.createEmptyBorder(5, 5, 0, 0)));
 
-        mainPanel.add(textPane);
+        //Set default to how to button
+        displayTutorial();
+
+        //Add text panel to scroll pane
+        JScrollPane scrollPane = new JScrollPane(textPane);
+
+        mainPanel.add(scrollPane);
     }
 
     /**
@@ -151,7 +161,7 @@ public class HelpGUI {
      */
     private void displayTabSymbols(){
         //Get tab symbol text
-        Path path = getFilePath(TAB_SYMBOLS);
+        Path path = Paths.get("src", "resources", "help_text", "tab_symbols.txt");
 
         //Array to hold text
         String[] textArray = new String[1];
@@ -176,20 +186,62 @@ public class HelpGUI {
     }
 
     /**
-     * Get the file path
+     * Retrieve and display tutorial in the text pane.
      */
-    private Path getFilePath(String type){
-        Path pth;
-        //Get tab symbols file path
-        if(type.equals(TAB_SYMBOLS)){
-            pth = Paths.get("src", "resources", "help_text", "tab_symbols.txt");
-        }else{
-            pth = null;
-        }
+    private void displayTutorial(){
+        //Get tab symbol text
+        Path path = Paths.get("src", "resources", "help_text", "how_to_read_tabs.txt");
 
-        return pth;
+        //Array to hold text
+        String[] textArray = new String[1];
+        textArray[0] = "";
+
+        Charset charset = Charset.forName("US-ASCII");
+        try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
+            String line = "";
+            int i = 0;
+            while ((line = reader.readLine()) != null){
+                textArray[0] += line + "\n";
+                i++;
+            }
+
+            doc.insertString(doc.getLength(), textArray[0], null);
+
+        } catch (IOException x) {
+            System.err.format("IOException: %s%n", x);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Retrieve and display guitar tunings in the text pane.
+     */
+    private void displayTunings(){
+        //Get tab symbol text
+        Path path = Paths.get("src", "resources", "help_text", "tab_symbols.txt");
+
+        //Array to hold text
+        String[] textArray = new String[1];
+        textArray[0] = "";
+
+        Charset charset = Charset.forName("US-ASCII");
+        try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
+            String line = "";
+            int i = 0;
+            while ((line = reader.readLine()) != null){
+                textArray[0] += line + "\n";
+                i++;
+            }
+
+            doc.insertString(doc.getLength(), textArray[0], null);
+
+        } catch (IOException x) {
+            System.err.format("IOException: %s%n", x);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Listener class for tab symbol button click
@@ -204,6 +256,8 @@ public class HelpGUI {
 
             //Empty text pane
             textPane.setText("");
+
+            displayTutorial();
         }
     }
 
@@ -239,6 +293,8 @@ public class HelpGUI {
 
             //Empty text pane
             textPane.setText("");
+
+            displayTunings();
         }
     }
 
