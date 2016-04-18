@@ -14,6 +14,7 @@ class textEditorGUI{
     private JMenuItem itemOpen,itemSave;
     private JMenuItem itemPrint;
     private JMenuItem itemClose;
+    private JMenuItem itemNew;
     private JMenuItem itemInsertTab;
     private JMenuItem itemHelp;
     private JMenuItem itemAbout;
@@ -119,9 +120,9 @@ class textEditorGUI{
         ActionListener itemListener = new MenuItemListener();
 
         //  set up submenu components for File menu
+        itemNew = new JMenuItem("New");
         itemOpen = new JMenuItem("Open...");
         itemSave = new JMenuItem("Save");
-        itemPrint = new JMenuItem("Print");
         itemClose = new JMenuItem("Close");
 
         //Set menu item sizes
@@ -131,12 +132,12 @@ class textEditorGUI{
         //Add action listeners to menu items
         itemOpen.addActionListener(itemListener);
         itemSave.addActionListener(itemListener);
-        itemPrint.addActionListener(itemListener);
+        itemNew.addActionListener(itemListener);
         itemClose.addActionListener(itemListener);
 
+        menu1.add(itemNew);
         menu1.add(itemOpen);
         menu1.add(itemSave);
-        menu1.add(itemPrint);
         menu1.add(itemClose);
 
         //Set up submenu components for Edit menu
@@ -264,8 +265,9 @@ class textEditorGUI{
                 //  Save file
                 tfc.saveFile(tabSheet.getString());
             }
-            else if(item == itemPrint){
-                //Do print operation
+            else if(item == itemNew){
+                //Create new file
+                tfc.createNewFile();
             }
             else if(item == itemClose){
                 //Close the program

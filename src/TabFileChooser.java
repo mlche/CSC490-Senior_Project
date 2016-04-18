@@ -22,6 +22,7 @@ public class TabFileChooser{
     }
 
     public void openFile(){
+        jfc.setDialogTitle("Open");
 
         //  allow user to select a file location and set a value to check
         int val = jfc.showOpenDialog(jfc);
@@ -53,6 +54,7 @@ public class TabFileChooser{
     }
 
     public void saveFile(String s){
+        jfc.setDialogTitle("Save");
         int val = 1;
 
         //  if the file was not saved, create dialog to save file
@@ -99,5 +101,38 @@ public class TabFileChooser{
         }
 
         return i;
+    }
+
+    public void createNewFile(){
+        jfc.setDialogTitle("New");
+
+
+        //  allow user to select a file location and set a value to check
+        int val = jfc.showOpenDialog(jfc);
+
+        //  execute if user approves opening a file
+        if(val == JFileChooser.APPROVE_OPTION){
+            File inFile = jfc.getSelectedFile();
+
+            //  auxillary function completeing checks before opening new file
+            alteredText();
+
+            String s = "";
+
+            //  open file location and read it in to text area
+            try (BufferedReader reader = Files.newBufferedReader(inFile.toPath(), Charset.forName("US-ASCII"))) {
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    s += line + "\n";
+                }
+            } catch (IOException x) {
+                System.err.format("IOException: %s%n", x);
+            }
+
+            curr_proj = inFile;
+
+            tabSheet.setText(s);
+
+        }
     }
 }
