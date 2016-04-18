@@ -86,12 +86,8 @@ public class TabSheet extends JScrollPane {
 
                     setOverwriteMode(currentOverMode);
                 }
-            }
-            public void keyReleased(KeyEvent e){
-                int code = e.getKeyCode();
-
-                if(code == KeyEvent.VK_SPACE && autoIncrease) increaseTabLength(code);
                 else if(code == 8) decreaseTabLength();
+                else if(code == KeyEvent.VK_SPACE && autoIncrease) increaseTabLength(code);
             }
         });
 
@@ -271,9 +267,19 @@ public class TabSheet extends JScrollPane {
         try {
             int caret = textArea.getCaretPosition();
 
+            //if(textArea.getText().charAt(textArea.getLineStartOffset(caret)+1) == 'D') caret -= 3;
+
             //Get the line that the offset is on
             int pos = textArea.getLineOfOffset(caret);
 
+            //textArea.getText().charAt(textArea.getLineStartOffset(pos));
+            char compare = textArea.getText().charAt(textArea.getLineStartOffset(pos));
+            if(compare == 'e') caret -= 0;
+            else if(compare == 'B') caret -= 1;
+            else if(compare == 'G') caret -= 2;
+            else if(compare == 'D') caret -= 3;
+            else if(compare == 'A') caret -= 4;
+            else caret -= 5;
 
             //Fill an array with all lines in the text area
             for (String line : textArea.getText().split("\\n")) {
@@ -329,7 +335,7 @@ public class TabSheet extends JScrollPane {
                 ArrayList<Integer> section = new ArrayList<>(prev);
                 section.addAll(next);
 
-                //Add a dash to each line in section
+                //delete dash from each line in section
 
                 String alt = textArea.getText().substring(0,textArea.getLineStartOffset(section.get(0)));
 
@@ -355,9 +361,10 @@ public class TabSheet extends JScrollPane {
 
                 alt += textArea.getText().substring(textArea.getLineEndOffset(section.get(end)),
                         textArea.getText().length());
+
                 textArea.setText(alt);
 
-                textArea.setCaretPosition(caret-2);
+                textArea.setCaretPosition(caret);
             }
         }
         catch(BadLocationException e1){
