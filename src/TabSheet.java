@@ -91,7 +91,7 @@ public class TabSheet extends JScrollPane {
                 int code = e.getKeyCode();
 
                 if(code == KeyEvent.VK_SPACE && autoIncrease) increaseTabLength(code);
-                else if(code == 8) decreaseTabLength();
+                else if(code == 8 && autoIncrease) decreaseTabLength();
             }
         });
 
@@ -132,11 +132,11 @@ public class TabSheet extends JScrollPane {
     private void toggleAutoIncrease(){
         if(autoIncrease){
             setAutoIncrease(false);
-            //GUI.updateAutoIncreaseStatus();
+            GUI.updateAutoIncreaseStatus();
         }
         else{
             setAutoIncrease(true);
-            //GUI.updateAutoIncreaseStatus();
+            GUI.updateAutoIncreaseStatus();
         }
     }
 
