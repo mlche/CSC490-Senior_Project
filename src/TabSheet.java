@@ -86,12 +86,12 @@ public class TabSheet extends JScrollPane {
 
                     setOverwriteMode(currentOverMode);
                 }
-                //else if(code == 8) decreaseTabLength();
             }
             public void keyReleased(KeyEvent e){
                 int code = e.getKeyCode();
 
                 if(code == KeyEvent.VK_SPACE && autoIncrease) increaseTabLength(code);
+                else if(code == 8) decreaseTabLength();
             }
         });
 
@@ -261,7 +261,7 @@ public class TabSheet extends JScrollPane {
         }
     }
 
-    /*
+
     private void decreaseTabLength(){
         //Create an array with enough indexes for each line in the text area.
         //String[] lines = new String[textArea.getLineCount()];
@@ -269,8 +269,10 @@ public class TabSheet extends JScrollPane {
 
 
         try {
+            int caret = textArea.getCaretPosition();
+
             //Get the line that the offset is on
-            int pos = textArea.getLineOfOffset(textArea.getCaretPosition());
+            int pos = textArea.getLineOfOffset(caret);
 
 
             //Fill an array with all lines in the text area
@@ -330,26 +332,37 @@ public class TabSheet extends JScrollPane {
                 //Add a dash to each line in section
 
                 String alt = textArea.getText().substring(0,textArea.getLineStartOffset(section.get(0)));
-                int end = 0;
-                //for(int j = 0; j < section.size(); j++){
-                //    alt += textArea.getText().substring(textArea.getLineStartOffset(section.get(j)),
-                //                textArea.getLineEndOffset(section.get(j)) - 2) + "|\n";
-                    //if((j + 1) <= section.size()
-                    //        && (textArea.getLineEndOffset(section.get(j)) + 2) < (textArea.getLineStartOffset(section.get(j+1)))){
-                    //    alt += textArea.getText().substring(textArea.getLineEndOffset(section.get(j)),
-                    //            textArea.getLineStartOffset(section.get(j+1)));
-                    //}
-                //    end = j;
-                //}
 
-                //alt += textArea.getText().substring(textArea.getLineEndOffset(section.get(end)),
-                //        textArea.getText().length());
+                int end = 0;
+                for(int j = 0; j < section.size(); j++){
+
+                    alt += textArea.getText().substring(textArea.getLineStartOffset(section.get(j)),
+                            textArea.getLineEndOffset(section.get(j)) - 3) + "|\n";
+
+                    if((j + 1) < section.size()){
+                        int m = textArea.getLineEndOffset(section.get(j));
+                        int l = j+1;
+                        int n = textArea.getLineStartOffset(section.get((l)));
+
+                        if((m + 3) < n){
+                            alt += textArea.getText().substring(textArea.getLineEndOffset(section.get(j)),
+                                    textArea.getLineStartOffset(section.get(l)));
+                        }
+                    }
+
+                    end = j;
+                }
+
+                alt += textArea.getText().substring(textArea.getLineEndOffset(section.get(end)),
+                        textArea.getText().length());
                 textArea.setText(alt);
+
+                textArea.setCaretPosition(caret-2);
             }
         }
         catch(BadLocationException e1){
             e1.printStackTrace();
         }
-    }*/
+    }
 
 }
