@@ -219,7 +219,7 @@ public class HelpGUI {
      */
     private void displayTunings(){
         //Get tab symbol text
-        Path path = Paths.get("src", "resources", "help_text", "tab_symbols.txt");
+        Path path = Paths.get("src", "resources", "help_text", "supported_tunings.txt");
 
         //Array to hold text
         String[] textArray = new String[1];
