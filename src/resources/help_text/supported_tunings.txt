@@ -1,0 +1,25 @@
+The tunings that are supported in this version of Tablature Text Editor are as follows:
+
+E-Standard
+		e|-------|
+		B|-------|
+		G|-------|
+		D|-------|
+		A|-------|
+		E|-------|
+
+Drop D
+		e|-------|
+		B|-------|
+		G|-------|
+		D|-------|
+		A|-------|
+		D|-------|
+
+E-Flat
+		eb|-------|
+		Bb|-------|
+		Gb|-------|
+		Db|-------|
+		Ab|-------|
+		Eb|-------|
